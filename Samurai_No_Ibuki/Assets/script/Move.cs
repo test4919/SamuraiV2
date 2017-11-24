@@ -527,8 +527,8 @@ public class Move : MonoBehaviour
         if (other.gameObject.tag == "Block_event")//进入战斗1
         {
             Debug.Log("EVENT START");
-            GameObject.Find("Event1").GetComponent<Block_Event>().ShowBlock01();
             GameObject.Find("Event1").GetComponent<BoxCollider2D>().enabled = false;
+            GameObject.Find("Event1").GetComponent<Block_Event>().ShowBlock01();
 
         }
         else if (other.gameObject.tag == "Block_event2")//进入战斗2

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CreateEnemy : MonoBehaviour {
 
@@ -81,7 +82,7 @@ public class CreateEnemy : MonoBehaviour {
                 return;
             }
             else if (player.position.x >83 && player.position.x < 159)
-            {
+            {//133
                 GetComponent<Block_Event>().HideBlock02();
                 GetComponent<CreateEnemy>().enabled = false;
                 return;
@@ -174,7 +175,14 @@ public class CreateEnemy : MonoBehaviour {
         float rndx;
         float rndy;
         rndx = Random.Range(rndxMin, rndxMax);
-        rndy = Random.Range(33, 37);
+        if (SceneManager.GetActiveScene().name == "Main")
+        {
+            rndy = Random.Range(33, 37);
+        }
+        else
+        {
+            rndy = Random.Range(6, 9);
+        }
         Instantiate(_Sky, new Vector3(rndx, rndy, 1f), transform.rotation);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CamereControl : MonoBehaviour {
 
@@ -76,7 +77,7 @@ public class CamereControl : MonoBehaviour {
 
         if (transform.position.x > 70.0f)
         {
-           // WaterFall.SetActive(true);
+          
             WaterCloud.SetActive(true);
         }
 
@@ -135,28 +136,50 @@ public class CamereControl : MonoBehaviour {
         }
 
 
-
-        if (player.transform.position.y > 26.0f)
+        if (SceneManager.GetActiveScene().name == "Main")
         {
-            xMax = 324.0f;
-        }
-        else { xMax = 84f; yMin = -1f; }
+            if (player.transform.position.y > 26.0f)
+            {
+                xMax = 324.0f;
+            }
+            else { xMax = 84f; yMin = -1f; }
 
-        if (player.transform.position.x > 64.0f)
+            if (player.transform.position.x > 64.0f)
+            {
+                yMax = 32.0f;
+            }
+            else { yMax = 0.5f; }
+
+            if (player.transform.position.x > 83.0f && player.transform.position.y > 23.0f)
+            {
+                yMin = 32.0f;
+
+            }
+            else { yMin = -1f; }
+        }
+        else if (SceneManager.GetActiveScene().name == "MachiBattle")
         {
-            yMax = 32.0f;
+            
+            if (player.transform.position.y > 26.0f)
+            {
+                xMax = 324.0f;
+            }
+            else { xMax = 235f; yMin = -1f; }
+
+            if (player.transform.position.x > 64.0f)
+            {
+                yMax = 32.0f;
+            }
+            else { yMax = 0.5f; }
+
+            if (player.transform.position.x > 83.0f && player.transform.position.y > 23.0f)
+            {
+                yMin = 32.0f;
+
+            }
+            else { yMin = -1f; }
         }
-        else { yMax = 0.5f; }
-
-        if (player.transform.position.x > 83.0f && player.transform.position.y > 23.0f)
-        {
-            yMin = 32.0f;
-
-        }
-        else { yMin = -1f; }
-
-       
-
+        
     }
 
     private void startsyobu()

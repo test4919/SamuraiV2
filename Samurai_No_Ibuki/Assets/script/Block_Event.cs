@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Block_Event : MonoBehaviour {
     GameObject Arrow;
@@ -24,8 +25,12 @@ public class Block_Event : MonoBehaviour {
 
         if (player.transform.position.x >= 70)
         {
-            GameObject.Find("MEnemy1").GetComponent<TakoController>().enabled = true;
-            GameObject.Find("MEnemy2").GetComponent<TakoController>().enabled = true;
+            if (SceneManager.GetActiveScene().name == "Main")
+            {
+                GameObject.Find("MEnemy1").GetComponent<TakoController>().enabled = true;
+                GameObject.Find("MEnemy2").GetComponent<TakoController>().enabled = true;
+            }
+            
         }
 
         if (player.transform.position.x >= 62 && Camera.main.transform.position.x <= 75)
@@ -72,14 +77,22 @@ public class Block_Event : MonoBehaviour {
         GameObject.Find("Left01").GetComponent<BoxCollider2D>().enabled = true;
         GetComponent<CreateEnemy>().enabled = true;
         GameObject.Find("Main Camera").GetComponent<CamereControl>().ChgCameraPlc();
-        CreateWaterFallFromResources();
+        if (SceneManager.GetActiveScene().name == "Main")
+        {
+            CreateWaterFallFromResources();
+        }
+        
     }
 
     public void HideBlock01()
     {
         GameObject.Find("Player").GetComponent<Move>().isStop = true;
         GameObject.Find("Main Camera").GetComponent<CamereControl>().StartCoroutine("showSehai");
-        CreateFromResources1();
+        if (SceneManager.GetActiveScene().name=="Main")
+        {
+            CreateFromResources1();
+        }
+        
     }
     
     public void ShowBlock02()
@@ -89,7 +102,11 @@ public class Block_Event : MonoBehaviour {
         GameObject.Find("Left02").GetComponent<BoxCollider2D>().enabled = true;
         GetComponent<CreateEnemy>().enabled = true;
         GameObject.Find("Main Camera").GetComponent<CamereControl>().ChgCameraPlc();
-        Leaf.SetActive(true);
+        if (SceneManager.GetActiveScene().name == "Main")
+        {
+            Leaf.SetActive(true);
+        }
+        
     }
 
     public void HideBlock02()
@@ -97,8 +114,14 @@ public class Block_Event : MonoBehaviour {
         Debug.Log("Hide2");
         GameObject.Find("Player").GetComponent<Move>().isStop = true;
         GameObject.Find("Main Camera").GetComponent<CamereControl>().StartCoroutine("showSehai");
-        CreateFromResources2();
-        Leaf.SetActive(false);
+        
+        if (SceneManager.GetActiveScene().name == "Main")
+        {
+            Leaf.SetActive(true);
+            CreateFromResources2();
+            Leaf.SetActive(false);
+        }
+        
     }
     
     public void ShowBlock03()
@@ -115,7 +138,11 @@ public class Block_Event : MonoBehaviour {
         Debug.Log("Hide3");
         GameObject.Find("Player").GetComponent<Move>().isStop = true;
         GameObject.Find("Main Camera").GetComponent<CamereControl>().StartCoroutine("showSehai");
-        CreateBossFromResources();
+        if (SceneManager.GetActiveScene().name == "Main")
+        {
+            CreateBossFromResources();
+        }
+        
     }
 
     public void ShowBossBlock()
