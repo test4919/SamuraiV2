@@ -549,10 +549,14 @@ public class Move : MonoBehaviour
             GameObject.Find("BossEvent").GetComponent<Block_Event>().ShowBossBlock();
             GameObject.Find("BossEvent").GetComponent<BoxCollider2D>().enabled = false;
         }
-        else if (other.gameObject.tag=="DownBattle")
+        else if (other.gameObject.tag == "DownBattle")
         {
             Debug.Log("DownBattle");
             SceneManager.LoadScene("DownBattle");
+        }
+        else if (other.gameObject.tag == "FinalBattle")
+        {
+            SceneManager.LoadScene("Boss2");
         }
 
     }

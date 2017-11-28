@@ -157,7 +157,7 @@ public class CamereControl : MonoBehaviour {
             }
             else { yMin = -1f; }
         }
-        else if (SceneManager.GetActiveScene().name == "MachiBattle")
+         if (SceneManager.GetActiveScene().name == "MachiBattle")
         {
             
             if (player.transform.position.y > 26.0f)
@@ -177,7 +177,7 @@ public class CamereControl : MonoBehaviour {
                 yMin = 32.0f;
 
             }
-            else { yMin = -1f; }
+            else { yMin = -0.5f; }
         }
         
     }

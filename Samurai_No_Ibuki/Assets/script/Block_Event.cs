@@ -42,16 +42,24 @@ public class Block_Event : MonoBehaviour {
         }
         else if (player.transform.position.x >= 80&& player.transform.position.y <= 25)
         {
-            ArrowShow = true;
-            Arrow.GetComponent<SpriteRenderer>().enabled = true;
-            Arrow.transform.eulerAngles = new Vector3(0, 0, 62);
+            if (SceneManager.GetActiveScene().name == "Main")
+            {
+                ArrowShow = true;
+                Arrow.GetComponent<SpriteRenderer>().enabled = true;
+                Arrow.transform.eulerAngles = new Vector3(0, 0, 62);
+            }
+            
         }
         else if (player.transform.position.y >= 25)
         {
-            Arrow.GetComponent<SpriteRenderer>().enabled = false;
-            ArrowShow = false;
-            GameObject.Find("MEnemy1").GetComponent<TakoController>().enabled = false;
-            GameObject.Find("MEnemy2").GetComponent<TakoController>().enabled = false;
+            if (SceneManager.GetActiveScene().name == "Main")
+            {
+                Arrow.GetComponent<SpriteRenderer>().enabled = false;
+                ArrowShow = false;
+                GameObject.Find("MEnemy1").GetComponent<TakoController>().enabled = false;
+                GameObject.Find("MEnemy2").GetComponent<TakoController>().enabled = false;
+            }
+            
         }
         
 
