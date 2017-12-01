@@ -30,6 +30,7 @@ public class Move : MonoBehaviour
     public GameObject readyUlt;
     public GameObject HpBar;
     public GameObject HpBarBG;
+    public float Gravity;
    
     Animator animator;
     Vector3 StartPos;
@@ -252,7 +253,7 @@ public class Move : MonoBehaviour
             }
 
             GetComponent<BoxCollider2D>().isTrigger = false;
-            GetComponent<Rigidbody2D>().gravityScale = 1;
+            GetComponent<Rigidbody2D>().gravityScale = Gravity;
 
             timer = 0;
             //Ult = false;
@@ -266,7 +267,7 @@ public class Move : MonoBehaviour
                 }
 
                 GetComponent<Rigidbody2D>().drag = 1.0f;
-                GetComponent<Rigidbody2D>().gravityScale = 1f;
+                GetComponent<Rigidbody2D>().gravityScale = Gravity;
               
                 float FlickLength_X = (this.EndPos.x - this.StartPos.x);
                 float FlickLength_Y = (this.EndPos.y - this.StartPos.y);
@@ -497,14 +498,14 @@ public class Move : MonoBehaviour
             flick() && other.gameObject.tag == "enemy3" || flick() && other.gameObject.tag == "Boss")
         {
             GetComponent<BoxCollider2D>().isTrigger = true;
-            GetComponent<Rigidbody2D>().gravityScale = 1;
+            GetComponent<Rigidbody2D>().gravityScale = Gravity;
         }
 
         else if (other.gameObject.tag == "wall")
         {
             animator.SetTrigger("Wait");
             animator.SetBool("DropPose", false);
-            GetComponent<Rigidbody2D>().gravityScale = 1f;
+            GetComponent<Rigidbody2D>().gravityScale = Gravity;
             SoundManager.instance.SingleSound(JumpDown);
         }
 
@@ -518,7 +519,7 @@ public class Move : MonoBehaviour
         {
             if (Drag == true) { return; }
             GetComponent<BoxCollider2D>().isTrigger = false;
-            //GetComponent<Rigidbody2D>().gravityScale = 1;
+            //GetComponent<Rigidbody2D>().gravityScale = Gravity;
         }
     }
 
@@ -565,7 +566,7 @@ public class Move : MonoBehaviour
     {
         // Debug.Log("Exit");
         GetComponent<BoxCollider2D>().isTrigger = false;
-        GetComponent<Rigidbody2D>().gravityScale = 1;
+        GetComponent<Rigidbody2D>().gravityScale = Gravity;
     }
 
     private void showP()
@@ -669,39 +670,39 @@ public class Move : MonoBehaviour
 
     private void showhpBar()
     {
-        if (ShowHpBar)
-        {
-            b = 1;
-            a += 0.05f;
-            HpBarBG.GetComponent<Image>().color = new Color(1, 1, 1, a);
-            HpBar.GetComponent<Image>().color = new Color(1, 1, 1, a);
-            hideBarTime += 0.08f;
-            GetComponent<Player_Hp>().Hp= HpBar.GetComponent<Image>().fillAmount*100f;
-            if (hideBarTime >= 5)
-            {
+        //if (ShowHpBar)
+        //{
+        //    b = 1;
+        //    a += 0.05f;
+        //    HpBarBG.GetComponent<Image>().color = new Color(1, 1, 1, a);
+        //    HpBar.GetComponent<Image>().color = new Color(1, 1, 1, a);
+        //    hideBarTime += 0.08f;
+        //    GetComponent<Player_Hp>().Hp = HpBar.GetComponent<Image>().fillAmount * 100f;
+        //    if (hideBarTime >= 5)
+        //    {
 
-                isAtk = false;
-            }
-        }
+        //        isAtk = false;
+        //    }
+        //}
 
-        if (!isAtk)
-        {
-            if (isAtk)
-            {
-                //a = 0;
-                hideBarTime = 0;
-                HpBarBG.GetComponent<Image>().color = new Color(1, 1, 1, a);
-                HpBar.GetComponent<Image>().color = new Color(1, 1, 1, a);
-                return;
-            }
-            ShowHpBar = false;
-            hideBarTime = 0;
-            b -= 0.02f;
-            a = 0;
+        //if (!isAtk)
+        //{
+        //    if (isAtk)
+        //    {
+        //        a = 0;
+        //        hideBarTime = 0;
+        //        HpBarBG.GetComponent<Image>().color = new Color(1, 1, 1, a);
+        //        HpBar.GetComponent<Image>().color = new Color(1, 1, 1, a);
+        //        return;
+        //    }
+        //    ShowHpBar = false;
+        //    hideBarTime = 0;
+        //    b -= 0.02f;
+        //    a = 0;
 
-            HpBarBG.GetComponent<Image>().color = new Color(1, 1, 1, b);
-            HpBar.GetComponent<Image>().color = new Color(1, 1, 1, b);
-        }
+        //    HpBarBG.GetComponent<Image>().color = new Color(1, 1, 1, b);
+        //    HpBar.GetComponent<Image>().color = new Color(1, 1, 1, b);
+        //}
     }
 
     private void flip()
