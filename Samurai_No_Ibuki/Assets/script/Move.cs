@@ -52,7 +52,7 @@ public class Move : MonoBehaviour
     float b = 1;
     float c= 1;
     float d=0;
-
+	  public bool AttackIsLeft;
     // Use this for initialization
     void Start()
     {
@@ -337,7 +337,11 @@ public class Move : MonoBehaviour
             }         
             return;
         }
-
+	if (EndPos.x - StartPos.x > 0)
+        {
+            AttackIsLeft = true;
+        }
+        else { AttackIsLeft = false; }
         ////move
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved)
         {
