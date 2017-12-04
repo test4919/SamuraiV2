@@ -14,7 +14,7 @@ public class TakeAttack : MonoBehaviour
     void Start()
     {
         Player = GameObject.Find("Player");
-        forward = transform.position - Player.transform.position;
+       forward = new Vector2(transform.position.x, -15.0f);
     }
 
     // Update is called once per frame
