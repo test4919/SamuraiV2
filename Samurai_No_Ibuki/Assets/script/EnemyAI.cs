@@ -28,6 +28,12 @@ public class EnemyAI : MonoBehaviour {
     bool DeadFlag = false;
     private Vector2 Deadforward;
     public GameObject Player;
+	
+    public const float g = 9.8f;
+    float flydistance = 5.0f;
+    public float horizontalspeed = 8.0f;
+
+    private float verticalSpeed = 10.0f;
     // Use this for initialization
     void Start () {
 		FindPlayer ();
@@ -63,6 +69,22 @@ public class EnemyAI : MonoBehaviour {
         Physics2D.IgnoreLayerCollision(9, 10);
         Physics2D.IgnoreLayerCollision(9,13);
         Physics2D.IgnoreLayerCollision(13,13);
+	    
+	     float time = 0.0f;
+
+        if (DeadFlag)
+        {
+            
+            time += Time.deltaTime;
+            transform.Translate(Deadforward * Time.deltaTime * 0.5f, Space.World);
+            float vertical= verticalSpeed - g * time;
+            transform.Translate(transform.up * vertical * Time.deltaTime, Space.World);
+            if (transform.position.y< Deadforward.y + 0.2f)
+             {
+                Destroy(gameObject, 0.5f);
+             }
+
+        }
 
     }
 	void FindPlayer()
@@ -71,7 +93,8 @@ public class EnemyAI : MonoBehaviour {
 	}
 	void EnemyAttack()
 	{
-		
+		if (!DeadFlag)
+        	{
 		dist =Mathf.Abs( Vector3.Distance (PlayerGO.transform.position, this.transform.position));
 		//Debug.Log (dist);
 		if(PlayerGO.transform.position.x>this.transform.position.x)//敌人向右移动
@@ -110,6 +133,7 @@ public class EnemyAI : MonoBehaviour {
 				}
 		}
 	}
+	}
 
     public void EnemyDestory()
     {
@@ -147,19 +171,8 @@ public class EnemyAI : MonoBehaviour {
         }
         // yield return new WaitForSeconds(0.5f);
 
-        float time = 0.0f;
-        Deadforward = transform.position - Player.transform.position;
+     	Deadforward = new Vector2(transform.position.x + flydistance, transform.position.y);
         Dead();
-        if (DeadFlag)
-        {
-            time += Time.deltaTime;
-            transform.Translate(Deadforward * Time.deltaTime * 0.5f);
-            /* if (time >= 1.0f)
-             {
-                 Destroy(this.gameObject);
-             }*/
-
-        }
 
         //Destroy(gameObject, 0.3f);
         Destroy(BloodR, 1.5f);
@@ -170,7 +183,7 @@ public class EnemyAI : MonoBehaviour {
 
     private void Dead()
     {
-        Destroy(gameObject, 0.3f);
+       // Destroy(gameObject, 0.3f);
         DeadFlag = true;
         this.GetComponent<Animator>().SetBool("Dead", true);
     }
