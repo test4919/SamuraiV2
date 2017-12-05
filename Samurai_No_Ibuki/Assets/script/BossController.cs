@@ -20,6 +20,8 @@ public class BossController : MonoBehaviour {
     public GameObject Enemy_BloodR;
     public GameObject Enemy_BloodL;
     public GameObject EnemyDeath_Blood;
+    public GameObject Oora;
+    public GameObject BackHPBar;
     public float BossHp;
     public float BossMaxHp;
 
@@ -380,8 +382,8 @@ public class BossController : MonoBehaviour {
         //thisAnimator.SetBool("BDeath", true);
         thisAnimator.SetBool("BRun", false);
         thisAnimator.SetBool("BWait", true);
-        GameObject.Find("oora_5_00017").SetActive(false);
-        GameObject.Find("BackGround").SetActive(false);
+         Oora.SetActive(false);
+        BackHPBar.SetActive(false);
         yield return new WaitForSeconds(1f);
         thisAnimator.SetBool("BDeath", true);
         yield return new WaitForSeconds(2.2f);

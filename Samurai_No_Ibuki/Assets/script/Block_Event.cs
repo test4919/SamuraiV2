@@ -25,11 +25,10 @@ public class Block_Event : MonoBehaviour {
 
         if (player.transform.position.x >= 70)
         {
-            if (SceneManager.GetActiveScene().name == "Main")
-            {
-                GameObject.Find("MEnemy1").GetComponent<TakoController>().enabled = true;
-                GameObject.Find("MEnemy2").GetComponent<TakoController>().enabled = true;
-            }
+            //if (SceneManager.GetActiveScene().name == "Main")
+            //{
+            //    GameObject.Find("MEnemy2").GetComponent<TakoController>().enabled = true;
+            //}
             
         }
 
@@ -56,8 +55,8 @@ public class Block_Event : MonoBehaviour {
             {
                 Arrow.GetComponent<SpriteRenderer>().enabled = false;
                 ArrowShow = false;
-                GameObject.Find("MEnemy1").GetComponent<TakoController>().enabled = false;
-                GameObject.Find("MEnemy2").GetComponent<TakoController>().enabled = false;
+                //GameObject.Find("MEnemy1").GetComponent<TakoController>().enabled = false;
+                //GameObject.Find("MEnemy2").GetComponent<TakoController>().enabled = false;
             }
             
         }

@@ -499,7 +499,8 @@ public class Move : MonoBehaviour
     {
 
         if (flick() && other.gameObject.tag == "enemy" || flick() && other.gameObject.tag == "enemy2" ||
-            flick() && other.gameObject.tag == "enemy3" || flick() && other.gameObject.tag == "Boss")
+            flick() && other.gameObject.tag == "enemy3" || flick() && other.gameObject.tag == "enemyM" || 
+            flick() && other.gameObject.tag == "Boss")
         {
             GetComponent<BoxCollider2D>().isTrigger = true;
             GetComponent<Rigidbody2D>().gravityScale = Gravity;

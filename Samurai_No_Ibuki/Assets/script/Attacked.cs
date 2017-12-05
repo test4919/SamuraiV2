@@ -54,7 +54,7 @@ public class Attacked : MonoBehaviour {
                 ultfire.localScale = new Vector3(1.5f, 1, 0);
             }
         }
-       else if (other.gameObject.tag == "enemy2")
+       else if (other.gameObject.tag == "enemy2" || other.gameObject.tag == "enemyM")
         {
             other.GetComponent<TakoController>().death = true;
            
