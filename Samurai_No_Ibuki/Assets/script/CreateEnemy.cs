@@ -75,6 +75,10 @@ public class CreateEnemy : MonoBehaviour {
 
         if (nextWave + 1 > waves.Length - 1)
         {
+            if (SceneManager.GetActiveScene().name == "DownBattle")
+            {
+                return;
+            }
             if (player.transform.position.x < 82f)
             {
                 GetComponent<Block_Event>().HideBlock01();

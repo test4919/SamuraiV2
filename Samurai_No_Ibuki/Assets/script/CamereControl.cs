@@ -50,6 +50,7 @@ public class CamereControl : MonoBehaviour {
     public GameObject WaterFall;
     public GameObject WaterCloud;
     public bool BossOpen;
+    public GameObject TopClose;
    
     // Use this for initialization
     void Start () {
@@ -65,6 +66,10 @@ public class CamereControl : MonoBehaviour {
         Screen.autorotateToPortrait = false;
         Screen.autorotateToPortraitUpsideDown = false;
         Screen.orientation = ScreenOrientation.AutoRotation;
+        if (SceneManager.GetActiveScene().name=="DownBattle")
+        {
+            StartCoroutine("DalayClose");
+        }
     }
 
     void LateUpdate()
@@ -180,6 +185,13 @@ public class CamereControl : MonoBehaviour {
             else { yMin = -0.5f; }
         }
         
+    }
+
+    private IEnumerator DalayClose()
+    {
+        yield return new WaitForSeconds(2.5f);
+        TopClose.SetActive(true);
+        GameObject.Find("Event").GetComponent<CreateEnemy>().enabled = true;
     }
 
     private void startsyobu()

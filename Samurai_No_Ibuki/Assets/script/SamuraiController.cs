@@ -132,7 +132,10 @@ public class SamuraiController : MonoBehaviour {
 
             }
 		}
-        
+        if (other.gameObject.tag == "NextScene")
+        {
+            Destroy(gameObject);
+        }
     }
 
     void OnCollisionStay2D(Collision2D other)

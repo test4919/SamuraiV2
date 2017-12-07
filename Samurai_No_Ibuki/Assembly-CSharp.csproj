@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\DownScrolling.cs" />
+     <Compile Include="Assets\ToNextScene.cs" />
      <Compile Include="Assets\script\AtkByEnemy.cs" />
      <Compile Include="Assets\script\Attacked.cs" />
      <Compile Include="Assets\script\BGScrolling.cs" />
