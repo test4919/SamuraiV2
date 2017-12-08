@@ -33,7 +33,7 @@ public class EnemyAI : MonoBehaviour {
     float flydistance = 5.0f;
     public float horizontalspeed = 8.0f;
 
-    private float verticalSpeed = 10.0f;
+    public float verticalSpeed = 10.0f;
     float time = 0.0f;
     float GR1Y;
     float GR2Y;
@@ -103,7 +103,7 @@ public class EnemyAI : MonoBehaviour {
         Physics2D.IgnoreLayerCollision(9, 10);
         Physics2D.IgnoreLayerCollision(9,13);
         Physics2D.IgnoreLayerCollision(13,13);
-
+        Physics2D.IgnoreLayerCollision(13, 10);
 
 
         if (DeadFlag)

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class Player_Hp : MonoBehaviour {
-    public float Hp; //人物血量
+    public float Hp=100.0f; //人物血量
     private float alpha = 0f;
     private float OverAlpha = 0f;
     private float BackAlpha=1f;
@@ -24,9 +24,13 @@ public class Player_Hp : MonoBehaviour {
     // Use this for initialization
     void Start () {
         animator = GetComponent<Animator>();
-        Hp = 100;
     }
-    
+
+    private void Awake()
+    {
+        Hp = 100.0f;
+    }
+
     void Update () {
         if (timeChecking)
         {

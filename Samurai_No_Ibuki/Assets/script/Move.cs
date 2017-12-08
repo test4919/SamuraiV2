@@ -513,6 +513,10 @@ public class Move : MonoBehaviour
             GetComponent<Rigidbody2D>().gravityScale = Gravity;
             SoundManager.instance.SingleSound(JumpDown);
         }
+        if (other.gameObject.tag == "NextScene")
+        {
+            //SceneManager.
+        }
 
        
         

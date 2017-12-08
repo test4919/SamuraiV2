@@ -357,7 +357,7 @@ public class BossController : MonoBehaviour {
     void HpBar()
     {
         var NowHp = GameObject.FindWithTag("BossHp").GetComponent<Image>();
-        var BackHp = GameObject.Find("BackBossHp").GetComponent<Image>();
+        var BackHp = GameObject.FindWithTag("BackBossHp").GetComponent<Image>();
 
         BossHp = NowHp.fillAmount * 100f;
         if (NowHp.fillAmount < 1)
