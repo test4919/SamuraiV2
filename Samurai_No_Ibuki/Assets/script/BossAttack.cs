@@ -17,8 +17,9 @@ public class BossAttack : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             Debug.Log("TakePlayerHp");
-          // PlayerHp.GetComponent<Player_Hp>().Hp -= 5f;
-            GameObject.Find("HeroHpBar").GetComponent<Image>().fillAmount -= 20f / 100f;
+            PlayerHp.GetComponent<Player_Hp>().Hp -= 10.0f;
+            //GameObject.Find("HeroHpBar").GetComponent<Image>().fillAmount -= 20f / 100f;
+            GameObject.Find("HeroHpBar").GetComponent<Image>().fillAmount = PlayerHp.GetComponent<Player_Hp>().Hp / 100.0f;
             GameObject.Find("Player").GetComponent<Move>().ShowHpBar = true;
             GameObject.Find("Player").GetComponent<Move>().isAtk = true;
             GameObject.Find("SoundManager").GetComponent<SoundManager>().playerbloodsound();

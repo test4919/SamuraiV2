@@ -36,7 +36,7 @@ public class Player_Hp : MonoBehaviour {
             
         }
         TakeAttack();
-        if (Hp <= 0) { return; }
+        if (Hp <= 0.0f) { return; }
         LowHp();
     }
 

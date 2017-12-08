@@ -34,6 +34,37 @@ public class EnemyAI : MonoBehaviour {
     public float horizontalspeed = 8.0f;
 
     private float verticalSpeed = 10.0f;
+    float time = 0.0f;
+    float GR1Y;
+    float GR2Y;
+    bool ground = false;
+    public LayerMask groundLayer;
+
+    bool isGround()
+    {
+        Vector2 position = transform.position;
+        Vector2 direction = Vector2.down;
+        float distance = 3.25f;
+
+        Debug.DrawRay(position, direction, Color.green);
+        RaycastHit2D hit = Physics2D.Raycast(position, direction, distance, groundLayer);
+        if (hit.collider != null)
+        {
+            //this.GetComponent<Animator>().SetTrigger("DeadOG");
+
+            // this.GetComponent<Animator>().SetBool("DeadOnGround", true);
+            //this.GetComponent<Rigidbody2D>().bodyTyp
+            
+            Debug.Log("Hit"+ground);
+            return true;
+        }
+        else if (hit.collider == null)
+        {
+            Debug.Log("noHit"+ground);
+           
+        }
+        return false;
+    }
     // Use this for initialization
     void Start () {
 		FindPlayer ();
@@ -44,6 +75,9 @@ public class EnemyAI : MonoBehaviour {
 		thisRig = this.GetComponent<Rigidbody2D>();
 		thisController = this.GetComponent<SamuraiController> ();
         Player = GameObject.Find("Player");
+
+         //GR1Y = GameObject.Find("Gr").transform.position.y;
+
     }
 
     // Update is called once per frame
@@ -69,24 +103,38 @@ public class EnemyAI : MonoBehaviour {
         Physics2D.IgnoreLayerCollision(9, 10);
         Physics2D.IgnoreLayerCollision(9,13);
         Physics2D.IgnoreLayerCollision(13,13);
-	    
-	     float time = 0.0f;
+
+
 
         if (DeadFlag)
         {
-            
+            //float time = 0.0f;
             time += Time.deltaTime;
-            transform.Translate(Deadforward * Time.deltaTime * 0.5f, Space.World);
-            float vertical= verticalSpeed - g * time;
+            Vector2 flyforward = new Vector2(horizontalspeed, 0);
+            transform.Translate(flyforward * Time.deltaTime * 0.5f, Space.World);
+            float vertical= verticalSpeed;
             transform.Translate(transform.up * vertical * Time.deltaTime, Space.World);
-            if (transform.position.y< Deadforward.y + 0.2f)
-             {
-                Destroy(gameObject, 0.5f);
-             }
+
+            if (time > 2.0f)
+            {
+                Destroy(gameObject);
+            }
+            //if (isGround())
+            //{
+            //    if (ground)
+            //    {
+            //        this.GetComponent<Rigidbody2D>().Sleep();
+            //        Destroy(gameObject, 0.5f);
+            //        this.GetComponent<Animator>().SetBool("DeadOnGround", true);
+            //    }
+
+            //}
 
         }
 
     }
+
+    
 	void FindPlayer()
 	{
 		PlayerGO = GameObject.FindGameObjectWithTag ("Player");
@@ -147,44 +195,53 @@ public class EnemyAI : MonoBehaviour {
     private IEnumerator BloodBurst()
     {
         bloodOpen = true;
-
-        
-        if (this.transform.localScale.x == -0.9f || this.transform.localScale.x == -0.7f)
+        if (!DeadFlag)
         {
-            BloodL = GameObject.Instantiate(BloodShowL, transform.position, transform.rotation) as GameObject;
-            BloodL.transform.localEulerAngles = new Vector3(0, 90, 0);
+
+            if (this.transform.localScale.x == -0.9f || this.transform.localScale.x == -0.7f)
+            {
+                BloodL = GameObject.Instantiate(BloodShowL, transform.position, transform.rotation) as GameObject;
+                BloodL.transform.localEulerAngles = new Vector3(0, 90, 0);
 
 
-            BloodL.transform.localScale = new Vector3(-1.0f, 1, 1);
+                BloodL.transform.localScale = new Vector3(-1.0f, 1, 1);
+            }
+            else if (this.transform.localScale.x == 0.9f || this.transform.localScale.x == 0.7f)
+            {
+                BloodR = GameObject.Instantiate(BloodShowR, transform.position, transform.rotation) as GameObject;
+                BloodR.transform.localEulerAngles = new Vector3(0, 90, 0);
+
+
+                BloodR.transform.localScale = new Vector3(1.0f, 1, 1);
+            }
+            if (!GetComponent<AudioSource>().isPlaying)
+            {
+                GetComponent<AudioSource>().Play();
+            }
+            // yield return new WaitForSeconds(0.5f);
+
+            Deadforward = new Vector2(transform.position.x+ flydistance, transform.position.y);
+            Dead();
+
+            //Destroy(gameObject, 0.3f);
+            Destroy(BloodR, 1.5f);
+            Destroy(BloodL, 1.5f);
+            yield return new WaitForSeconds(0.5f);
+            bloodOpen = false;
         }
-        else if (this.transform.localScale.x == 0.9f || this.transform.localScale.x == 0.7f)
-        {
-            BloodR = GameObject.Instantiate(BloodShowR, transform.position, transform.rotation) as GameObject;
-            BloodR.transform.localEulerAngles = new Vector3(0, 90, 0);
-
-
-            BloodR.transform.localScale = new Vector3(1.0f, 1, 1);
-        }
-        if (!GetComponent<AudioSource>().isPlaying)
-        {
-            GetComponent<AudioSource>().Play();
-        }
-        // yield return new WaitForSeconds(0.5f);
-
-     	Deadforward = new Vector2(transform.position.x + flydistance, transform.position.y);
-        Dead();
-
-        //Destroy(gameObject, 0.3f);
-        Destroy(BloodR, 1.5f);
-        Destroy(BloodL, 1.5f);
-        yield return new WaitForSeconds(0.5f);
-        bloodOpen = false;
     }
 
     private void Dead()
     {
-       // Destroy(gameObject, 0.3f);
+        // Destroy(gameObject, 0.3f);
+        StartCoroutine("DelayGround");
         DeadFlag = true;
         this.GetComponent<Animator>().SetBool("Dead", true);
+    }
+
+    private IEnumerator DelayGround()
+    {
+        yield return new WaitForSeconds(1.0f);
+        ground = true;
     }
 }
