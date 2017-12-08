@@ -33,6 +33,8 @@ public class CreateEnemy : MonoBehaviour {
     public float rndxMin;
     public float SamuraiPointMax;
     public float SamuraiPointMin;
+    public float SamuraiShowPointLeft;
+    public float SamuraiShowPointRight;
 
     public SwapnState state = SwapnState.count;
     void Start()
@@ -162,9 +164,10 @@ public class CreateEnemy : MonoBehaviour {
 
     void SpawnEnemy(Transform _enemy)
     {
-        float rndx;
-        rndx = Random.Range(SamuraiPointMin,SamuraiPointMax); 
-        Instantiate(_enemy, new Vector3(rndx,transform.position.y,1f), transform.rotation);
+        //float rndx;
+        //rndx = Random.Range(SamuraiPointMin,SamuraiPointMax); 
+        Instantiate(_enemy, new Vector3(SamuraiShowPointLeft,transform.position.y,1f), transform.rotation);
+        Instantiate(_enemy, new Vector3(SamuraiShowPointRight, transform.position.y, 1f), transform.rotation);
     }
 
     void SpawnNinja(Transform _ninja)

@@ -450,7 +450,8 @@ public class BossController : MonoBehaviour {
     private IEnumerator ClearButton()
     {
         yield return new WaitForSeconds(1.5f);
-        ClearChs.GetComponent<Canvas>().sortingOrder = 16;
+        // ClearChs.GetComponent<Canvas>().sortingOrder = 16;
+        SceneManager.LoadScene("Loading2");
     }
 
     private IEnumerator UltAtk()
