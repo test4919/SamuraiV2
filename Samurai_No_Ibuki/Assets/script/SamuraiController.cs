@@ -114,8 +114,11 @@ public class SamuraiController : MonoBehaviour {
     }
 	void OnTriggerEnter2D(Collider2D other)
 	{
-
-	}
+        if (other.gameObject.tag == "NextScene")
+        {
+            Destroy(gameObject);
+        }
+    }
 	void OnCollisionEnter2D(Collision2D other)
 	{
 		//Debug.Log (other.transform.tag);
@@ -132,10 +135,7 @@ public class SamuraiController : MonoBehaviour {
 
             }
 		}
-        if (other.gameObject.tag == "NextScene")
-        {
-            Destroy(gameObject);
-        }
+        
     }
 
     void OnCollisionStay2D(Collision2D other)

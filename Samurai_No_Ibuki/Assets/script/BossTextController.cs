@@ -76,17 +76,13 @@ public class BossTextController : MonoBehaviour
         timeElapsed = Time.time;
         currentLine++;
         lastUpdateCharacter = -1;
-        Debug.Log("currentLine%2"+currentLine %2);
-        Debug.Log("currentLine"+currentLine);
         if (currentLine+1 % 2 == 0)
         {
-            Debug.Log("-1");
             rt.localScale = new Vector3(-rt.localScale.x, rt.localScale.y, rt.localScale.z);
             Textrt.localScale = new Vector3(-Textrt.localScale.x, Textrt.localScale.y, Textrt.localScale.z);
         }
         else 
         {
-            Debug.Log("1");
             rt.localScale = new Vector3(-rt.localScale.x, rt.localScale.y, rt.localScale.z);
             Textrt.localScale = new Vector3(-Textrt.localScale.x, Textrt.localScale.y, Textrt.localScale.z);
         }

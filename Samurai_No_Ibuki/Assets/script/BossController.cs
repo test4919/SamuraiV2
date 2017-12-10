@@ -130,7 +130,6 @@ public class BossController : MonoBehaviour {
         }
         else if (BossHp <= BossMaxHp * 0.4f && !(thisAnimator.GetCurrentAnimatorStateInfo(0).IsName("BAttack") || thisAnimator.GetCurrentAnimatorStateInfo(0).IsName("BReady")))
         {
-            Debug.Log("1");
             Skill();
         }
         if (timer > 5)

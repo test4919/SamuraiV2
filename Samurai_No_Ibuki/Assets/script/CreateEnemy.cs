@@ -29,8 +29,10 @@ public class CreateEnemy : MonoBehaviour {
     public float WaveCountdown;
     private Transform player;
     private float searchCount = 1f;
+    float Skyrndy;
     public float rndxMax;
     public float rndxMin;
+
     public float SamuraiPointMax;
     public float SamuraiPointMin;
     public float SamuraiShowPointLeft;
@@ -87,24 +89,30 @@ public class CreateEnemy : MonoBehaviour {
                 GetComponent<CreateEnemy>().enabled = false;
                 return;
             }
-            else if (player.position.x >83 && player.position.x < 159)
+            else if (player.position.x > 83 && player.position.x < 159)
             {//133
                 GetComponent<Block_Event>().HideBlock02();
                 GetComponent<CreateEnemy>().enabled = false;
                 return;
             }
-            else if (player.position.x > 160 &&player.position.x < 250)
+            else if (player.position.x > 160 && player.position.x < 250)
             {
                 GetComponent<Block_Event>().HideBlock03();
                 GetComponent<CreateEnemy>().enabled = false;
                 return;
             }
-            else if (player.position.x > 245 &&player.position.x < 315)
+            else if (player.position.x > 245 && player.position.x < 315)
             {
-               
+
                 return;
             }
-
+            else if (SceneManager.GetActiveScene().name == "DownBattle")
+            {
+                GetComponent<Block_Event>().DownBattleClear();
+                GetComponent<CreateEnemy>().enabled = false;
+                return;
+            }
+                
         }
         else
         {
@@ -180,16 +188,20 @@ public class CreateEnemy : MonoBehaviour {
     void SpawnSky(Transform _Sky)
     {
         float rndx;
-        float rndy;
+        
         rndx = Random.Range(rndxMin, rndxMax);
         if (SceneManager.GetActiveScene().name == "Main")
         {
-            rndy = Random.Range(33, 37);
+            Skyrndy = Random.Range(33, 37);
         }
-        else
+        else if (SceneManager.GetActiveScene().name == "DownBattle")
         {
-            rndy = Random.Range(6, 9);
+            Skyrndy = Random.Range(-5, 13);
         }
-        Instantiate(_Sky, new Vector3(rndx, rndy, 1f), transform.rotation);
+        else if (SceneManager.GetActiveScene().name == "MachiBattle")
+        {
+            Skyrndy = Random.Range(6, 9);
+        }
+        Instantiate(_Sky, new Vector3(rndx, Skyrndy, 1f), transform.rotation);
     }
 }

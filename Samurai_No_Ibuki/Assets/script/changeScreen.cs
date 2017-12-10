@@ -10,13 +10,14 @@ public class changeScreen : MonoBehaviour {
     bool changeAlpha = false;
     GameObject startbutton;
     public GameObject StartEffect;
-    public GameObject StartPanel;
+     GameObject StartPanel;
     public float alpha;
     float Panel_alpha = 1.0f;
 
     // Use this for initialization
     void Start() {
         startbutton = GameObject.Find("StartButton");
+        StartPanel = GameObject.FindGameObjectWithTag("StartPanel");
         Screen.orientation = ScreenOrientation.Landscape;
         Screen.autorotateToLandscapeLeft = true;
         Screen.autorotateToLandscapeRight = true;
@@ -30,7 +31,6 @@ public class changeScreen : MonoBehaviour {
         Time.timeScale = 1f;
         if (changeAlpha)
         {
-            Debug.Log("Start Change");
             StartEffect.SetActive(true);
 
             alpha -= 0.01f;
@@ -48,8 +48,11 @@ public class changeScreen : MonoBehaviour {
             Panel_alpha = 0;
             StartPanel.GetComponent<Image>().enabled = false;
         }
-
-        StartPanel.GetComponent<Image>().color = new Color(0, 0, 0, Panel_alpha);
+        if (SceneManager.GetActiveScene().name == "Start")
+        {
+            StartPanel.GetComponent<Image>().color = new Color(0, 0, 0, Panel_alpha);
+        }
+       
     }
 
     public void Big()

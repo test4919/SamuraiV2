@@ -55,8 +55,7 @@ public class Block_Event : MonoBehaviour {
             {
                 Arrow.GetComponent<SpriteRenderer>().enabled = false;
                 ArrowShow = false;
-                //GameObject.Find("MEnemy1").GetComponent<TakoController>().enabled = false;
-                //GameObject.Find("MEnemy2").GetComponent<TakoController>().enabled = false;
+                Destroy(GameObject.FindWithTag("enemyM"));
             }
             
         }
@@ -161,6 +160,11 @@ public class Block_Event : MonoBehaviour {
         GameObject.Find("Player").GetComponent<Move>().BattleStart();
         GameObject.Find("BossBlock").GetComponent<BoxCollider2D>().enabled = true;
         
+    }
+
+    public void DownBattleClear()
+    {
+        GameObject.Find("Brokentree").GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
     }
 
     private IEnumerator StartChat()

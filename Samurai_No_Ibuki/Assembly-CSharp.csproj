@@ -46,8 +46,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\DownScrolling.cs" />
-     <Compile Include="Assets\ToNextScene.cs" />
      <Compile Include="Assets\script\AtkByEnemy.cs" />
      <Compile Include="Assets\script\Attacked.cs" />
      <Compile Include="Assets\script\BGScrolling.cs" />
@@ -62,6 +60,7 @@
      <Compile Include="Assets\script\BossUlt.cs" />
      <Compile Include="Assets\script\CamereControl.cs" />
      <Compile Include="Assets\script\CreateEnemy.cs" />
+     <Compile Include="Assets\script\DownScrolling.cs" />
      <Compile Include="Assets\script\EnemyAI.cs" />
      <Compile Include="Assets\script\GhostSprites.cs" />
      <Compile Include="Assets\script\Kiseki.cs" />
@@ -74,6 +73,7 @@
      <Compile Include="Assets\script\TakeAttack.cs" />
      <Compile Include="Assets\script\TakoController.cs" />
      <Compile Include="Assets\script\TextController.cs" />
+     <Compile Include="Assets\script\ToNextScene.cs" />
      <Compile Include="Assets\script\UltAttack.cs" />
      <Compile Include="Assets\script\changeScreen.cs" />
      <Compile Include="Assets\script\enemy.cs" />

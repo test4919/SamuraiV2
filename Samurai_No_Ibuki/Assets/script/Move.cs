@@ -513,13 +513,10 @@ public class Move : MonoBehaviour
             GetComponent<Rigidbody2D>().gravityScale = Gravity;
             SoundManager.instance.SingleSound(JumpDown);
         }
-        if (other.gameObject.tag == "NextScene")
-        {
-            //SceneManager.
-        }
-
-       
         
+
+
+
     }
 
     private void OnCollisionStay2D(Collision2D other)
@@ -563,6 +560,11 @@ public class Move : MonoBehaviour
         {
             Debug.Log("DownBattle");
             SceneManager.LoadScene("DownBattle");
+        }
+        else if (other.gameObject.tag == "NextScene")
+        {
+            Debug.Log("NextScene");
+            SceneManager.LoadScene("MachiBattle");
         }
         else if (other.gameObject.tag == "FinalBattle")
         {

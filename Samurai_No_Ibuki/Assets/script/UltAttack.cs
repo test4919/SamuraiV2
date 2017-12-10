@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class UltAttack : MonoBehaviour {
 
-    public float takeBossHp;
+     float takeBossHp;
     public AudioClip isUltSound;
 
     void Start()
@@ -18,35 +18,29 @@ public class UltAttack : MonoBehaviour {
        
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "Boss")
         {
             GameObject.Find("BossHp").GetComponent<Image>().fillAmount -= takeBossHp;
             GameObject.Find("Boss(Clone)").GetComponent<BossController>().ULTEnemyBlood();
         }
-       
     }
-    
-    void OnTriggerStay2D(Collider2D other)
+
+
+    private void OnTriggerStay2D(Collider2D other)
     {
-
-        if (other.gameObject.tag == "enemy")
+        if (other.gameObject.tag == "enemy"|| other.gameObject.tag == "enemy3")
         {
-
-            var samurai = GameObject.FindWithTag("enemy").GetComponent<EnemyAI>();
-            samurai.EnemyDestory();
+            other.gameObject.GetComponent<EnemyAI>().EnemyDestory();
         }
         else if (other.gameObject.tag == "enemy2")
         {
             var Sky = GameObject.FindWithTag("enemy2").GetComponent<TakoController>();
-            Sky.death = true;
+            other.gameObject.GetComponent<TakoController>().death = true;
+           // other.gameObject.GetComponent<EnemyAI>().EnemyDestory();
         }
-        else if (other.gameObject.tag == "enemy3")
-        {
-            var ninja = GameObject.FindWithTag("enemy3").GetComponent<EnemyAI>();
-             ninja.EnemyDestory();
-        }
+
         //SoundManager.instance.UltUse(isUltSound);
         //SoundManager.instance.Ultvol = 0.3f;
         //SoundManager.instance.Ultpitch = Random.Range(0.95f, 1.05f);
