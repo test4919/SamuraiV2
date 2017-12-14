@@ -82,8 +82,11 @@ public class CamereControl : MonoBehaviour {
 
         if (transform.position.x > 70.0f)
         {
-          
-            WaterCloud.SetActive(true);
+            if (SceneManager.GetActiveScene().name == "Main")
+            {
+                WaterCloud.SetActive(true);
+            }
+            
         }
 
         //look1

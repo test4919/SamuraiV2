@@ -81,6 +81,8 @@ public class CreateEnemy : MonoBehaviour {
         {
             if (SceneManager.GetActiveScene().name == "DownBattle")
             {
+                GetComponent<Block_Event>().DownBattleClear();
+                GetComponent<CreateEnemy>().enabled = false;
                 return;
             }
             if (player.transform.position.x < 82f)
@@ -106,13 +108,8 @@ public class CreateEnemy : MonoBehaviour {
 
                 return;
             }
-            else if (SceneManager.GetActiveScene().name == "DownBattle")
-            {
-                GetComponent<Block_Event>().DownBattleClear();
-                GetComponent<CreateEnemy>().enabled = false;
-                return;
-            }
-                
+            
+
         }
         else
         {
