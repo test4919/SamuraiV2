@@ -32,8 +32,8 @@ public class EnemyAI : MonoBehaviour {
     public const float g = 9.8f;
     float flydistance = 5.0f;
     public float horizontalspeed = 8.0f;
-
     public float verticalSpeed = 10.0f;
+
     float time = 0.0f;
     float GR1Y;
     float GR2Y;

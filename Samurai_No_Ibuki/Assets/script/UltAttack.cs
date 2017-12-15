@@ -30,7 +30,7 @@ public class UltAttack : MonoBehaviour {
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (other.gameObject.tag == "enemy"|| other.gameObject.tag == "enemy3")
+        if (other.gameObject.tag == "enemy"|| other.gameObject.tag == "enemy3" || other.gameObject.tag == "enemyM")
         {
             other.gameObject.GetComponent<EnemyAI>().EnemyDestory();
         }
