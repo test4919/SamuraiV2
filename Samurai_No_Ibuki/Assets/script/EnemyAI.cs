@@ -26,19 +26,27 @@ public class EnemyAI : MonoBehaviour {
     bool bloodOpen=false;
 
     bool DeadFlag = false;
-    private Vector2 Deadforward;
+    //private Vector2 Deadforward;
     public GameObject Player;
 	
     public const float g = 9.8f;
-    float flydistance = 5.0f;
-    public float horizontalspeed = 8.0f;
-
-    public float verticalSpeed = 10.0f;
+    float flySpeed = 1.0f;
+    public float horizontalspeed = 0.8f;
+    public float verticalSpeed = 0.6f;
     float time = 0.0f;
     float GR1Y;
     float GR2Y;
     bool ground = false;
     public LayerMask groundLayer;
+
+    public float Power = 30;
+    public float Angle = 60;
+    public float Gravity = -10;
+    private Vector3 MoveSpeed;
+    private Vector3 GritySpeed = Vector3.zero;
+    private float dTime;
+    private Vector3 currentAngle;
+    int forward;
 
     bool isGround()
     {
@@ -110,12 +118,37 @@ public class EnemyAI : MonoBehaviour {
         {
             //float time = 0.0f;
             time += Time.deltaTime;
-            Vector2 flyforward = new Vector2(horizontalspeed, 0);
-            transform.Translate(flyforward * Time.deltaTime * 0.5f, Space.World);
-            float vertical= verticalSpeed;
-            transform.Translate(transform.up * vertical * Time.deltaTime, Space.World);
+            //Vector2 flyforward = new Vector2(horizontalspeed * forward, verticalSpeed);
+            //transform.Translate(flyforward * Time.deltaTime * flySpeed);
+            //GritySpeed.y = Gravity * (dTime += Time.fixedDeltaTime);
+            //transform.Translate(GritySpeed * Time.fixedDeltaTime);
 
-            if (time > 2.0f)
+            currentAngle = Vector3.zero;
+
+            if (forward == 1)
+            {
+                MoveSpeed = Quaternion.Euler(new Vector3(0, 0, Angle)) * Vector3.right * Power;
+                GritySpeed.y = Gravity * (dTime += Time.fixedDeltaTime);
+                transform.position += (MoveSpeed + GritySpeed) * Time.fixedDeltaTime;
+                currentAngle.z = Mathf.Atan((MoveSpeed.y + GritySpeed.y) / MoveSpeed.x) * Mathf.Rad2Deg;
+                transform.eulerAngles = currentAngle;
+
+            }
+            else
+            {
+                MoveSpeed = Quaternion.Euler(new Vector3(0, 0, -Angle)) * Vector3.left * Power;
+                GritySpeed.y = Gravity * (dTime += Time.fixedDeltaTime);
+                transform.position += (MoveSpeed + GritySpeed) * Time.fixedDeltaTime;
+                currentAngle.z = Mathf.Atan((MoveSpeed.y + GritySpeed.y) / MoveSpeed.x) * Mathf.Rad2Deg;
+                transform.eulerAngles = currentAngle;
+
+            }
+
+
+
+
+
+            if (time > 1.5f)
             {
                 Destroy(gameObject);
             }
@@ -220,7 +253,7 @@ public class EnemyAI : MonoBehaviour {
             }
             // yield return new WaitForSeconds(0.5f);
 
-            Deadforward = new Vector2(transform.position.x+ flydistance, transform.position.y);
+            //Deadforward = new Vector2(transform.position.x+ flydistance, transform.position.y);
             Dead();
 
             //Destroy(gameObject, 0.3f);
@@ -235,7 +268,12 @@ public class EnemyAI : MonoBehaviour {
     {
         // Destroy(gameObject, 0.3f);
         StartCoroutine("DelayGround");
-        DeadFlag = true;
+        if (!DeadFlag)
+        {
+            forward = GameObject.Find("Player").GetComponent<Move>().AttackIsLeft;
+            //this.GetComponent<Rigidbody2D>().isKinematic = true;
+            DeadFlag = true;
+        }
         this.GetComponent<Animator>().SetBool("Dead", true);
     }
 
