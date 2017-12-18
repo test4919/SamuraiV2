@@ -193,7 +193,7 @@ public class CreateEnemy : MonoBehaviour {
         }
         else if (SceneManager.GetActiveScene().name == "DownBattle")
         {
-            Skyrndy = Random.Range(-4, 11);
+            Skyrndy = Random.Range(-5, 13);
         }
         else if (SceneManager.GetActiveScene().name == "MachiBattle")
         {

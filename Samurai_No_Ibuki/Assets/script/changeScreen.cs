@@ -46,11 +46,7 @@ public class changeScreen : MonoBehaviour {
         if (Panel_alpha < 0)
         {
             Panel_alpha = 0;
-            if (SceneManager.GetActiveScene().name == "Start")
-            {
-                StartPanel.GetComponent<Image>().enabled = false;
-            }
-            
+            StartPanel.GetComponent<Image>().enabled = false;
         }
         if (SceneManager.GetActiveScene().name == "Start")
         {

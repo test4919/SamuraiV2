@@ -103,10 +103,6 @@ public class Block_Event : MonoBehaviour {
     
     public void ShowBlock02()
     {
-        GameObject enemy2 = GameObject.FindGameObjectWithTag("enemy2");
-        GameObject enemy3 = GameObject.FindGameObjectWithTag("enemy3");
-        Destroy(enemy2);
-        Destroy(enemy3);
         GameObject.Find("Player").GetComponent<Move>().BattleStart();
         GameObject.Find("Right02").GetComponent<BoxCollider2D>().enabled = true;
         GameObject.Find("Left02").GetComponent<BoxCollider2D>().enabled = true;
@@ -169,7 +165,6 @@ public class Block_Event : MonoBehaviour {
     public void DownBattleClear()
     {
         GameObject.Find("Brokentree").GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
-        GameObject.Find("Brokentree").GetComponent<Animator>().Stop();
     }
 
     private IEnumerator StartChat()
