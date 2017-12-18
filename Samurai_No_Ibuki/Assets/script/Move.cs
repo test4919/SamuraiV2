@@ -30,6 +30,8 @@ public class Move : MonoBehaviour
     public GameObject readyUlt;
     public GameObject HpBar;
     public GameObject HpBarBG;
+    public GameObject KageBig;
+    public GameObject KageSmall;
     public float Gravity;
    
     Animator animator;
@@ -61,27 +63,35 @@ public class Move : MonoBehaviour
         RecoverTimer = 0;
         
     }
-
+    
     bool isGround()
     {
 
         Vector2 position = transform.position;
         Vector2 direction = Vector2.down;
         float distance = 3.25f;
+        float distanceKageSmall = 4.25f;
+        float distanceKageBig = 2.5f;
 
-        Debug.DrawRay(position, direction, Color.green);
+
+        Debug.DrawRay(position, new Vector2(0,-distanceKageSmall), Color.green);
+        Debug.DrawRay(position, new Vector2(0, -distanceKageBig), Color.white);
         RaycastHit2D hit = Physics2D.Raycast(position, direction, distance, groundLayer);
+        RaycastHit2D hitKageSmall = Physics2D.Raycast(position, direction, distanceKageSmall, groundLayer);
+        RaycastHit2D hitKageBig = Physics2D.Raycast(position, direction, distanceKageBig, groundLayer);
+
         if (hit.collider == null)
         {
             ground = true;
             animator.SetBool("DropPose", true);
+            
         }
         else if (hit.collider!=null)
         {
             ground = true;
             animator.SetBool("DropPose", false);
             animator.SetTrigger("Wait");
-           
+            
             if (Drag == true)
             {
                 return true;
@@ -91,9 +101,27 @@ public class Move : MonoBehaviour
                 gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
 
             }
-            //gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
-           // return true;
         }
+        //if (hitKageSmall.collider == null)
+        //{
+        //    KageSmall.SetActive(false);
+         
+        //}
+        //else if(hitKageSmall.collider != null)
+        //{
+        //    KageSmall.SetActive(true);
+        //}
+
+
+        if (hitKageBig.collider == null)
+        {
+            KageBig.SetActive(false);
+        }
+        else if (hitKageBig.collider != null)
+        {
+            KageBig.SetActive(true);
+        }
+
         return false;
     }
 
