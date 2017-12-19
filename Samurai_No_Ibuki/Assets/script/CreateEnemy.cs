@@ -83,6 +83,7 @@ public class CreateEnemy : MonoBehaviour {
             {
                 GetComponent<Block_Event>().DownBattleClear();
                 GetComponent<CreateEnemy>().enabled = false;
+                GameObject.Find("Brokentree").GetComponent<Animator>().Stop();
                 return;
             }
             if (player.transform.position.x < 82f)
@@ -193,7 +194,7 @@ public class CreateEnemy : MonoBehaviour {
         }
         else if (SceneManager.GetActiveScene().name == "DownBattle")
         {
-            Skyrndy = Random.Range(-5, 13);
+            Skyrndy = Random.Range(2.0f, 5.0f);
         }
         else if (SceneManager.GetActiveScene().name == "MachiBattle")
         {

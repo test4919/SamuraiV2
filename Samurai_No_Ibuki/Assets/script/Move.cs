@@ -30,8 +30,7 @@ public class Move : MonoBehaviour
     public GameObject readyUlt;
     public GameObject HpBar;
     public GameObject HpBarBG;
-    public GameObject KageBig;
-    public GameObject KageSmall;
+    public GameObject KageBig;    
     public float Gravity;
    
     Animator animator;
@@ -70,14 +69,10 @@ public class Move : MonoBehaviour
         Vector2 position = transform.position;
         Vector2 direction = Vector2.down;
         float distance = 3.25f;
-        float distanceKageSmall = 4.25f;
         float distanceKageBig = 2.5f;
-
-
-        Debug.DrawRay(position, new Vector2(0,-distanceKageSmall), Color.green);
+                
         Debug.DrawRay(position, new Vector2(0, -distanceKageBig), Color.white);
         RaycastHit2D hit = Physics2D.Raycast(position, direction, distance, groundLayer);
-        RaycastHit2D hitKageSmall = Physics2D.Raycast(position, direction, distanceKageSmall, groundLayer);
         RaycastHit2D hitKageBig = Physics2D.Raycast(position, direction, distanceKageBig, groundLayer);
 
         if (hit.collider == null)
@@ -102,24 +97,14 @@ public class Move : MonoBehaviour
 
             }
         }
-        //if (hitKageSmall.collider == null)
-        //{
-        //    KageSmall.SetActive(false);
-         
-        //}
-        //else if(hitKageSmall.collider != null)
-        //{
-        //    KageSmall.SetActive(true);
-        //}
-
-
         if (hitKageBig.collider == null)
         {
-            KageBig.SetActive(false);
+            KageBig.transform.localScale=new Vector3(0, 0, 0);
         }
         else if (hitKageBig.collider != null)
         {
-            KageBig.SetActive(true);
+            KageBig.transform.localScale = new Vector3(1, 1, 0);
+            
         }
 
         return false;
