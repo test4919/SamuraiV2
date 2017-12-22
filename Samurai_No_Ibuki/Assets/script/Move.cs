@@ -69,15 +69,14 @@ public class Move : MonoBehaviour
         Vector2 position = transform.position;
         Vector2 direction = Vector2.down;
         float distance = 3.25f;
-        float distanceKageBig = 2.5f;
+        
                 
-        Debug.DrawRay(position, new Vector2(0, -distanceKageBig), Color.white);
+        Debug.DrawRay(position, new Vector2(0, -distance), Color.white);
         RaycastHit2D hit = Physics2D.Raycast(position, direction, distance, groundLayer);
-        RaycastHit2D hitKageBig = Physics2D.Raycast(position, direction, distanceKageBig, groundLayer);
-
+        
         if (hit.collider == null)
         {
-            ground = true;
+            ground = false;
             animator.SetBool("DropPose", true);
             
         }
@@ -97,16 +96,7 @@ public class Move : MonoBehaviour
 
             }
         }
-        if (hitKageBig.collider == null)
-        {
-            KageBig.transform.localScale=new Vector3(0, 0, 0);
-        }
-        else if (hitKageBig.collider != null)
-        {
-            KageBig.transform.localScale = new Vector3(1, 1, 0);
-            
-        }
-
+        
         return false;
     }
 
@@ -146,6 +136,7 @@ public class Move : MonoBehaviour
 
     void FixedUpdate()
     {
+        
         if (isStop)
         {
             animator.SetTrigger("Wait");
@@ -185,8 +176,18 @@ public class Move : MonoBehaviour
         }
 
         //下落时的动作
-        if (!isGround())
+        if (ground)
         {
+            KageBig.transform.localScale = new Vector3(1, 1, 1);
+            KageBig.transform.position = (new Vector3(this.transform.position.x, this.transform.position.y - 2.3f, KageBig.transform.position.z));
+
+        }
+
+        else if (!isGround())
+        {
+            KageBig.transform.localScale = new Vector3(0.2f, 0.2f, 1);
+            KageBig.transform.position = (new Vector3(this.transform.position.x, KageBig.transform.position.y, KageBig.transform.position.z));
+
             Drag = false;
             animator.SetBool("DropPose", true);
             animator.ResetTrigger("Wait");
@@ -242,6 +243,7 @@ public class Move : MonoBehaviour
         // ボタンを離した瞬間
         if (Input.GetMouseButtonUp(0) || Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)
         {
+
             this.EndPos = Input.mousePosition;
 
             Drag = false;
@@ -527,9 +529,6 @@ public class Move : MonoBehaviour
             SoundManager.instance.SingleSound(JumpDown);
         }
         
-
-
-
     }
 
     private void OnCollisionStay2D(Collision2D other)
@@ -540,6 +539,7 @@ public class Move : MonoBehaviour
             GetComponent<BoxCollider2D>().isTrigger = false;
             //GetComponent<Rigidbody2D>().gravityScale = Gravity;
         }
+        
     }
 
     private void OnTriggerEnter2D(Collider2D other)

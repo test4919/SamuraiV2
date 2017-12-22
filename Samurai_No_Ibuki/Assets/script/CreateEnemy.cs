@@ -198,7 +198,7 @@ public class CreateEnemy : MonoBehaviour {
         }
         else if (SceneManager.GetActiveScene().name == "MachiBattle")
         {
-            Skyrndy = Random.Range(6, 9);
+            Skyrndy = Random.Range(3, 5);
         }
         Instantiate(_Sky, new Vector3(rndx, Skyrndy, 1f), transform.rotation);
     }
