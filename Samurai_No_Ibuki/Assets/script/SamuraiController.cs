@@ -91,7 +91,7 @@ public class SamuraiController : MonoBehaviour {
 	{
         float ninja_rndx;float ninja_rndy;
         ninja_rndx = Random.Range(-8.0f,8.0f);
-        ninja_rndy = Random.Range(5.0f, 11.0f);
+        ninja_rndy = Random.Range(7.0f, 11.0f);
 		FlashBy (new Vector2(ninja_rndx,ninja_rndy));
 		this.GetComponent<EnemyAI> ().pause = false;
 		Invoke ("ThrowSuriken", 0.5f);
@@ -152,9 +152,14 @@ public class SamuraiController : MonoBehaviour {
    
 	void FlashBy(Vector2 flashVetor)
 	{
-		this.transform.position = new Vector3 (this.transform.position.x + flashVetor.x, this.transform.position.y + flashVetor.y, this.transform.position.z);
-
-	}
+        this.transform.position = new Vector3(player.transform.position.x + flashVetor.x, player.transform.position.y + flashVetor.y, this.transform.position.z);
+        if (player.transform.position.x > this.transform.position.x)
+        {
+            this.transform.localScale = new Vector2(this.transform.localScale.x, this.transform.localScale.y);
+        }
+        else { this.transform.localScale = new Vector2(-this.transform.localScale.x, this.transform.localScale.y); }
+        
+    }
 
     IEnumerator DelayR()
     {

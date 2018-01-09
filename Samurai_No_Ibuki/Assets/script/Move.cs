@@ -402,7 +402,7 @@ public class Move : MonoBehaviour
             EndPos = Input.mousePosition;
 
             //居合的判定
-            if (checkTime > 0.7f)
+            if (/*checkTime > 0.7f*/checkTime > 0.5f)
             {
                 if ((StartPos - EndPos).sqrMagnitude == 0 && timer > 1.0f && GameObject.Find("UltFire").transform.localScale.x >= 1.5f)
                 {
