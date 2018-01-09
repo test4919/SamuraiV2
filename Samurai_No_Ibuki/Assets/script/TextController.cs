@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class TextController : MonoBehaviour {
 
@@ -23,10 +22,7 @@ public class TextController : MonoBehaviour {
 
     public GameObject panel;
     public GameObject menuKey;
-    public GameObject tutorialBlack;
-    private Transform player;
-    public bool flag = false;
-    bool flag1 = false;
+
     // 文字の表示が完了しているかどうか
     public bool IsCompleteDisplayText
     {
@@ -36,7 +32,6 @@ public class TextController : MonoBehaviour {
     void Start()
     {
         SetNextLine();
-        player = GameObject.Find("Player").transform;
         chatchs = true;
 }
 
@@ -75,11 +70,6 @@ public class TextController : MonoBehaviour {
             uiText.text = currentText.Substring(0, displayCharacterCount);
             lastUpdateCharacter = displayCharacterCount;
         }
-        if((player.GetComponent<Move>().Drag==true)&&(!flag))
-        {
-            tutorialEnd();
-            flag = true;
-        }
     }
 
 
@@ -97,41 +87,8 @@ public class TextController : MonoBehaviour {
     {
         panel.SetActive(false);
         chatchs = false;
-
-        if ((SceneManager.GetActiveScene().name == "Main") && (player.transform.position.x < 82f)&& (!flag))
-        {
-            tutorialStart();
-            //flag = true;
-        }
-        //else
-        //{
-        //    menuKey.SetActive(true);
-        //    GameObject.Find("Player").GetComponent<Move>().enabled = true;
-        //    GameObject.Find("Swordobject").GetComponent<Kiseki>().enabled = true;
-        //}
-    }
-
-    void tutorialStart()
-    {
-        tutorialBlack.SetActive(true);
-        //tutorialBlack.GetComponent<SpriteRenderer>().color = new Color(128, 255, 255, 255);
-        //tutorialEnd();
+        menuKey.SetActive(true);
         GameObject.Find("Player").GetComponent<Move>().enabled = true;
         GameObject.Find("Swordobject").GetComponent<Kiseki>().enabled = true;
-        
-    }
-    void tutorialEnd()
-    {
-       
-        menuKey.SetActive(true);
-        if (GameObject.FindWithTag("enemy3") != null)
-        {
-            GameObject.FindWithTag("enemy3").GetComponent<SamuraiController>().enabled = true;
-            GameObject.FindWithTag("enemy3").GetComponent<EnemyAI>().enabled = true;
-        }
-        //Debug.Log("test2");
-        tutorialBlack.SetActive(false);
-           
-        
     }
 }

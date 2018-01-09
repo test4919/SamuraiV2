@@ -23,7 +23,7 @@ public class CreateEnemy : MonoBehaviour {
     }
 
     public Wave[] waves;
-    public int nextWave =0;
+    private int nextWave =0;
 
     public float TimeBetween = 3f;
     public float WaveCountdown;
@@ -37,11 +37,6 @@ public class CreateEnemy : MonoBehaviour {
     public float SamuraiPointMin;
     public float SamuraiShowPointLeft;
     public float SamuraiShowPointRight;
-
-    
-    //public GameObject menuKey;
-    public GameObject tutorialBlack;
-    bool EndFlag = false;
 
     public SwapnState state = SwapnState.count;
     void Start()
@@ -75,12 +70,6 @@ public class CreateEnemy : MonoBehaviour {
         {
             WaveCountdown -= Time.deltaTime;
         }
-
-        if (Input.GetMouseButtonDown(0)&&(EndFlag))
-        {
-            tutorialEnd();
-            Debug.Log("11");
-        }
     }
 
     void WaveNext()
@@ -97,7 +86,6 @@ public class CreateEnemy : MonoBehaviour {
                 GameObject.Find("Brokentree").GetComponent<Animator>().Stop();
                 return;
             }
-          
             if (player.transform.position.x < 82f)
             {
                 GetComponent<Block_Event>().HideBlock01();
@@ -151,12 +139,6 @@ public class CreateEnemy : MonoBehaviour {
     IEnumerator SpawnWave(Wave _wave)
     {
         state = SwapnState.spawn;
-
-        if ((SceneManager.GetActiveScene().name == "Main") && (player.transform.position.x < 40f) && (nextWave == 0))
-        {
-            StartCoroutine(tutorialStart());
-
-        }
 
         for (int i = 0; i < _wave.countSamurai; i++)
         {
@@ -219,34 +201,5 @@ public class CreateEnemy : MonoBehaviour {
             Skyrndy = Random.Range(3, 5);
         }
         Instantiate(_Sky, new Vector3(rndx, Skyrndy, 1f), transform.rotation);
-    }
-
-    private IEnumerator tutorialStart()
-    {
-        yield return new WaitForSeconds(1f);
-        tutorialBlack.SetActive(true);
-        //GameObject.Find("TextController").SetActive(false);
-        //tutorialBlack.GetComponent<SpriteRenderer>().color = new Color(128, 255, 255, 255);
-        //tutorialEnd();
-        //GameObject.Find("Player").GetComponent<Move>().enabled = true;
-        //GameObject.Find("Swordobject").GetComponent<Kiseki>().enabled = true;
-        //Time.timeScale = 0.0f;
-        GameObject.Find("Player").GetComponent<Move>().enabled = false;
-        Debug.Log("test10");
-        GameObject.FindWithTag("enemy3").GetComponent<SamuraiController>().enabled = false;
-        GameObject.FindWithTag("enemy3").GetComponent<EnemyAI>().enabled = false;
-        //对话
-        GameObject.Find("Player").GetComponent<Move>().enabled = true;
-        Debug.Log("test11");
-        EndFlag = true;
-        GameObject.Find("TextController").GetComponent<TextController>().flag = false;
-    }
-    void tutorialEnd()
-    {
-        //menuKey.SetActive(true);
-        //GameObject.FindWithTag("enemy3").GetComponent<SamuraiController>().enabled = true;
-        //GameObject.FindWithTag("enemy3").GetComponent<EnemyAI>().enabled = true;
-        //tutorialBlack.SetActive(false);
-        //Debug.Log("test12");
     }
 }
