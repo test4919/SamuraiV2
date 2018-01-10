@@ -158,7 +158,7 @@ public class SamuraiController : MonoBehaviour {
             this.transform.localScale = new Vector2(this.transform.localScale.x, this.transform.localScale.y);
         }
         else { this.transform.localScale = new Vector2(-this.transform.localScale.x, this.transform.localScale.y); }
-        
+
     }
 
     IEnumerator DelayR()

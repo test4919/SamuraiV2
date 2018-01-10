@@ -9,7 +9,7 @@ public class AtkByEnemy : MonoBehaviour
     {
         if (other.gameObject.tag == "EnemyWeapon")
         {
-            GameObject.Find("Player").GetComponent<Player_Hp>().Hp -= 1f;
+            GameObject.Find("Player").GetComponent<Player_Hp>().Hp -= 2f;
             //GameObject.Find("HeroHpBar").GetComponent<Image>().fillAmount -= 1f / 100f;
             GameObject.Find("HeroHpBar").GetComponent<Image>().fillAmount = GameObject.Find("Player").GetComponent<Player_Hp>().Hp / 100.0f;
             GameObject.Find("Player").GetComponent<Move>().ShowHpBar = true;

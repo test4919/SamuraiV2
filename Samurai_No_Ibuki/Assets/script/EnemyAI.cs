@@ -75,13 +75,25 @@ public class EnemyAI : MonoBehaviour {
 		thisRig = this.GetComponent<Rigidbody2D>();
 		thisController = this.GetComponent<SamuraiController> ();
         Player = GameObject.Find("Player");
-
-         //GR1Y = GameObject.Find("Gr").transform.position.y;
-
+        if (PlayerGO.transform.position.x > this.transform.position.x)//敌人向右移动
+        {
+            this.transform.localScale = new Vector3(-0.9f, 0.9f, 1);
+        }
+        else
+         if (PlayerGO.transform.position.x < this.transform.position.x)//敌人向左移动
+        {
+            this.transform.localScale = new Vector3(0.9f, 0.9f, 1);
+        }
+        //GR1Y = GameObject.Find("Gr").transform.position.y;
     }
+
+    
 
     // Update is called once per frame
     void Update() {
+
+       
+
         if (!pause)
             timer += Time.deltaTime;
         if (timer >= findPlayerTimer)
@@ -104,7 +116,6 @@ public class EnemyAI : MonoBehaviour {
         Physics2D.IgnoreLayerCollision(9,13);
         Physics2D.IgnoreLayerCollision(13,13);
         Physics2D.IgnoreLayerCollision(13, 10);
-
 
         if (DeadFlag)
         {
