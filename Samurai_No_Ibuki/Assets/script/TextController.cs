@@ -28,6 +28,7 @@ public class TextController : MonoBehaviour
     public GameObject tutorialBlack;
     public GameObject Tpanel;
     public GameObject Arrow;
+    public GameObject ArrowPre;
     private Transform player;
     public bool flag = false;
     bool flag1 = false;
@@ -100,6 +101,7 @@ public class TextController : MonoBehaviour
             {
                 //Debug.Log("111");
                 Instantiate(Arrow, new Vector3(player.position.x + 2, player.position.y, 1f), transform.rotation);
+                Instantiate(ArrowPre, new Vector3(player.position.x + 2, player.position.y + 1.5f, 1f), transform.rotation);
                 TranslateSpeedTime = 0.1f;
             }
         }
@@ -155,6 +157,9 @@ public class TextController : MonoBehaviour
         TranslateSpeedTime = 0.1f;
         arrowflag = true;
         Instantiate(Arrow, new Vector3(player.position.x + 2, player.position.y, 1f), transform.rotation);
+        Instantiate(ArrowPre, new Vector3(player.position.x + 2, player.position.y + 1.5f, 1f), transform.rotation);
+
+
         //Debug.Log("222");
 
 

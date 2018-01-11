@@ -11,7 +11,8 @@ public class TutorialText : MonoBehaviour {
     public GameObject tutorialBlack;
     private Transform player;
     public bool flag = false;
-   
+    public GameObject ArrowPre;
+
     public Transform Samurai;
     public GameObject Arrow;
     bool arrowflag = false;
@@ -50,6 +51,7 @@ public class TutorialText : MonoBehaviour {
             {
                 //Debug.Log("111");
                 Instantiate(Arrow, new Vector3(player.position.x + 2, player.position.y, 1f), transform.rotation);
+                Instantiate(ArrowPre, new Vector3(player.position.x + 2, player.position.y + 1.5f, 1f), transform.rotation);
                 TranslateSpeedTime = 0.1f;
             }
         }
@@ -68,6 +70,7 @@ public class TutorialText : MonoBehaviour {
             GameObject.FindWithTag("enemy").GetComponent<EnemyAI>().enabled = false;
             TranslateSpeedTime = 0.1f;
             Instantiate(Arrow, new Vector3(player.position.x + 2, player.position.y, 1f), transform.rotation);
+            Instantiate(ArrowPre, new Vector3(player.position.x + 2, player.position.y + 1.5f, 1f), transform.rotation);
             arrowflag = true;
             trrigerflag = true;
         }
