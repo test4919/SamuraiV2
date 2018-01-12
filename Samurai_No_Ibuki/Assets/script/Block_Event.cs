@@ -162,6 +162,18 @@ public class Block_Event : MonoBehaviour {
         
     }
 
+    public void ShowBossSBattleBlock()
+    {
+        Debug.Log("BoSSS");
+        GameObject.Find("Main Camera").GetComponent<CamereControl>().ChgCameraPlc();
+        GameObject.Find("Boss").GetComponent<BossController>().enabled = true;
+        GameObject.Find("Boss01").GetComponent<BossController>().enabled = true;
+        GetComponent<CreateEnemy>().enabled = true;
+        GameObject.Find("Right03").GetComponent<BoxCollider2D>().enabled = true;
+        GameObject.Find("Left03").GetComponent<BoxCollider2D>().enabled = true;
+
+    }
+
     public void DownBattleClear()
     {
         GameObject.Find("Brokentree").GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;

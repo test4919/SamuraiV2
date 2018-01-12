@@ -87,6 +87,7 @@ public class BossController : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
+        Physics2D.IgnoreLayerCollision(14, 14);
         if (timeChecking)
         {
             deathTimer += 1f * Time.deltaTime;
@@ -249,21 +250,49 @@ public class BossController : MonoBehaviour {
     {
         BossUlt = true;
         this.GetComponent<Rigidbody2D>().gravityScale = 0;
-        if (this.transform.position.x > player.transform.position.x) {
-            randomX1 = Random.Range(310f, 315f);
-            randomY1 = Random.Range(34f, 39f);
-            randomX2 = Random.Range(326f, 335f);
-            randomY2 = Random.Range(38f, 39f);
-            randomX3 = Random.Range(310f, 335f);
-            randomY3 = 28f;
-        } else if (this.transform.position.x < player.transform.position.x) {
-            randomX1 = Random.Range(332f, 335f);
-            randomY1 = Random.Range(34f, 39f);
-            randomX2 = Random.Range(310f, 320f);
-            randomY2 = Random.Range(38f, 39f);
-            randomX3 = Random.Range(310f, 335f);
-            randomY3 = 28f;
+        if (SceneManager.GetActiveScene().name == "Main")
+        {
+            if (this.transform.position.x > player.transform.position.x)
+            {
+                randomX1 = Random.Range(310f, 315f);
+                randomY1 = Random.Range(34f, 39f);
+                randomX2 = Random.Range(326f, 335f);
+                randomY2 = Random.Range(38f, 39f);
+                randomX3 = Random.Range(310f, 335f);
+                randomY3 = 28f;
+            }
+            else if (this.transform.position.x < player.transform.position.x)
+            {
+                randomX1 = Random.Range(332f, 335f);
+                randomY1 = Random.Range(34f, 39f);
+                randomX2 = Random.Range(310f, 320f);
+                randomY2 = Random.Range(38f, 39f);
+                randomX3 = Random.Range(310f, 335f);
+                randomY3 = 28f;
+            }
         }
+        else if (SceneManager.GetActiveScene().name == "MachiBattle")
+        {
+            if (this.transform.position.x > player.transform.position.x)
+            {
+                randomX1 = Random.Range(187f, 200f);
+                randomY1 = Random.Range(3.5f, 3.8f);
+                randomX2 = Random.Range(180f, 200f);
+                randomY2 = Random.Range(-3.0f, 2.0f);
+                randomX3 = Random.Range(180f, 200f);
+                randomY3 = -3.0f;
+            }
+            else if (this.transform.position.x < player.transform.position.x)
+            {
+                randomX1 = Random.Range(200f, 180f);
+                randomY1 = Random.Range(3.5f, 3.8f);
+                randomX2 = Random.Range(180f, 200f);
+                randomY2 = Random.Range(-3.0f, 2.0f);
+                randomX3 = Random.Range(180f, 200f);
+                randomY3 = -3.0f;
+            }
+        }
+        
         Invoke("InsKage", 1.7f);
     }
     void InsKage()
@@ -355,10 +384,18 @@ public class BossController : MonoBehaviour {
 
     void HpBar()
     {
+        
         var NowHp = GameObject.FindWithTag("BossHp").GetComponent<Image>();
         var BackHp = GameObject.FindWithTag("BackBossHp").GetComponent<Image>();
+        if (SceneManager.GetActiveScene().name == "Main")
+        {
+            BossHp = NowHp.fillAmount * 100f;
+        }
 
-        BossHp = NowHp.fillAmount * 100f;
+        else if (SceneManager.GetActiveScene().name == "MachiBattle")
+        {
+            BossHp = NowHp.fillAmount * 1000f;
+        }
         if (NowHp.fillAmount < 1)
         {
             BackHp.fillAmount -= 0.1f * Time.deltaTime;
@@ -369,9 +406,19 @@ public class BossController : MonoBehaviour {
         }
         if (NowHp.fillAmount <= 0)
         {
-            GameObject.Find("Player").GetComponent<Move>().isStop = true;
+            if (SceneManager.GetActiveScene().name == "Main")
+            {
+                GameObject.Find("Player").GetComponent<Move>().isStop = true;
 
-            StartCoroutine(BossD());
+                StartCoroutine(BossD());
+
+            }
+            else if (SceneManager.GetActiveScene().name == "MachiBattle")
+            {
+               // DestroyObject(this.gameObject);
+               // DestroyObject(GameObject.Find("BossS"));
+                StartCoroutine(BossD());
+            }
 
         }
     }
@@ -379,10 +426,14 @@ public class BossController : MonoBehaviour {
     private IEnumerator BossD()
     {
         //thisAnimator.SetBool("BDeath", true);
-        thisAnimator.SetBool("BRun", false);
-        thisAnimator.SetBool("BWait", true);
-         Oora.SetActive(false);
-        BackHPBar.SetActive(false);
+        this.thisAnimator.SetBool("BRun", false);
+        this.thisAnimator.SetBool("BWait", true);
+        Oora.SetActive(false);
+        if (SceneManager.GetActiveScene().name == "Main")
+        {
+            BackHPBar.SetActive(false);
+        }
+        
         yield return new WaitForSeconds(1f);
         thisAnimator.SetBool("BDeath", true);
         yield return new WaitForSeconds(2.2f);
@@ -396,9 +447,18 @@ public class BossController : MonoBehaviour {
             }
         }
         yield return new WaitForSeconds(1f);
-        SoundManager.instance.BGM(BGMw);
-        GameObject.Find("MenuUse").GetComponent<Canvas>().sortingOrder = -10;
-        timeChecking = true;
+        if (SceneManager.GetActiveScene().name == "Main")
+        {
+            SoundManager.instance.BGM(BGMw);
+            GameObject.Find("MenuUse").GetComponent<Canvas>().sortingOrder = -10;
+            timeChecking = true;
+        }
+        else if (SceneManager.GetActiveScene().name == "MachiBattle")
+        {
+            DestroyObject(this.gameObject);
+            BackHPBar.SetActive(false);
+        }
+        
     }
 
 

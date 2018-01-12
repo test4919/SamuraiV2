@@ -116,6 +116,9 @@ public class EnemyAI : MonoBehaviour {
         Physics2D.IgnoreLayerCollision(9,13);
         Physics2D.IgnoreLayerCollision(13,13);
         Physics2D.IgnoreLayerCollision(13, 10);
+        Physics2D.IgnoreLayerCollision(13, 14);
+        Physics2D.IgnoreLayerCollision(9, 14);
+
 
         if (DeadFlag)
         {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UltAttack : MonoBehaviour {
 
@@ -23,7 +24,14 @@ public class UltAttack : MonoBehaviour {
         if (other.gameObject.tag == "Boss")
         {
             GameObject.Find("BossHp").GetComponent<Image>().fillAmount -= takeBossHp;
-            GameObject.Find("Boss(Clone)").GetComponent<BossController>().ULTEnemyBlood();
+            if (SceneManager.GetActiveScene().name == "Main")
+            {
+                GameObject.Find("Boss(Clone)").GetComponent<BossController>().ULTEnemyBlood();
+            }
+            else if (SceneManager.GetActiveScene().name=="MachiBattle")
+            {
+                GameObject.Find("Boss").GetComponent<BossController>().ULTEnemyBlood();
+            }
         }
     }
 

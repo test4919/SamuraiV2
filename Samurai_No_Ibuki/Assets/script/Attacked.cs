@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Attacked : MonoBehaviour {
 
@@ -11,22 +12,7 @@ public class Attacked : MonoBehaviour {
     void Start() {
         AtkBossDmg = 0.04f;
     }
-
-    //private void OnTriggerEnter2D(Collider2D other)
-    //{
-    //    var ultfire = GameObject.Find("UltFire").transform;
-
-    //    if (other.gameObject.tag == "Boss")
-    //    {
-    //        GameObject.Find("BossHp").GetComponent<Image>().fillAmount -= AtkBossDmg;
-    //        GameObject.Find("Boss").GetComponent<BossController>().EnemyBlood_show();
-    //        ultfire.localScale += new Vector3(0.38f, 0.25f, 0);
-    //        if (ultfire.localScale.x >= 1.5f)
-    //        {
-    //            ultfire.localScale = new Vector3(1.5f, 1, 0);
-    //        }
-    //    }
-    //}
+    
 
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -36,8 +22,18 @@ public class Attacked : MonoBehaviour {
         if (other.gameObject.tag == "Boss")
         {
             GameObject.Find("BossHp").GetComponent<Image>().fillAmount -= AtkBossDmg;
-            GameObject.Find("Boss(Clone)").GetComponent<BossController>().EnemyBlood_show();
-            ultfire.localScale += new Vector3(0.38f, 0.25f, 0);
+            if (SceneManager.GetActiveScene().name == "Main")
+            {
+                GameObject.Find("Boss(Clone)").GetComponent<BossController>().EnemyBlood_show();
+                
+            }
+            else if (SceneManager.GetActiveScene().name == "MachiBattle")
+            {
+                GameObject.Find("Boss").GetComponent<BossController>().EnemyBlood_show();
+                AtkBossDmg = 0.004f;
+            }
+
+                ultfire.localScale += new Vector3(0.38f, 0.25f, 0);
             if (ultfire.localScale.x >= 1.5f)
             {
                 ultfire.localScale = new Vector3(1.5f, 1, 0);

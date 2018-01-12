@@ -583,6 +583,12 @@ public class Move : MonoBehaviour
         {
             SceneManager.LoadScene("Boss2");
         }
+        else if (other.gameObject.tag == "BossSBattle")
+        {
+            Debug.Log("Block_BossSBattle");
+            GameObject.Find("EventBoss").GetComponent<Block_Event>().ShowBossSBattleBlock();
+            GameObject.Find("EventBoss").GetComponent<BoxCollider2D>().enabled = false;
+        }
 
     }
 
