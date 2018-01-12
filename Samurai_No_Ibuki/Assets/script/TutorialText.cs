@@ -50,7 +50,7 @@ public class TutorialText : MonoBehaviour {
             if ((TranslateSpeedTime > TranslateTime) && (arrowflag))
             {
                 //Debug.Log("111");
-                Instantiate(Arrow, new Vector3(player.position.x + 2, player.position.y, 1f), transform.rotation);
+               // Instantiate(Arrow, new Vector3(player.position.x + 2, player.position.y, 1f), transform.rotation);
                 Instantiate(ArrowPre, new Vector3(player.position.x + 2, player.position.y + 1.5f, 1f), transform.rotation);
                 TranslateSpeedTime = 0.1f;
             }
@@ -69,7 +69,7 @@ public class TutorialText : MonoBehaviour {
             GameObject.FindWithTag("enemy").GetComponent<SamuraiController>().enabled = false;
             GameObject.FindWithTag("enemy").GetComponent<EnemyAI>().enabled = false;
             TranslateSpeedTime = 0.1f;
-            Instantiate(Arrow, new Vector3(player.position.x + 2, player.position.y, 1f), transform.rotation);
+           // Instantiate(Arrow, new Vector3(player.position.x + 2, player.position.y, 1f), transform.rotation);
             Instantiate(ArrowPre, new Vector3(player.position.x + 2, player.position.y + 1.5f, 1f), transform.rotation);
             arrowflag = true;
             trrigerflag = true;
