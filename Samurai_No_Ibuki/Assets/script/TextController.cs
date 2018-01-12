@@ -4,10 +4,15 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class TextController : MonoBehaviour {
+public class TextController : MonoBehaviour
+{
+
 
     
     public string[] scenarios;
     [SerializeField] Text uiText;
+    [SerializeField]
+    Text uiText;
 
     [SerializeField]
     [Range(0.001f, 0.3f)]
@@ -22,6 +27,9 @@ public class TextController : MonoBehaviour {
 
     public GameObject panel;
     public GameObject menuKey;
+<<<<<<< HEAD
+=======
+>>>>>>> Yang
 
     // 文字の表示が完了しているかどうか
     public bool IsCompleteDisplayText
@@ -46,13 +54,14 @@ public class TextController : MonoBehaviour {
             {
                 SetNextLine();
                
+
             }
             else if (currentLine == scenarios.Length && Input.GetMouseButtonDown(0) || currentLine < scenarios.Length &&
                 Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)
             {
-               
+
                 TextCLose();
-                
+
             }
         }
         else
@@ -90,5 +99,6 @@ public class TextController : MonoBehaviour {
         menuKey.SetActive(true);
         GameObject.Find("Player").GetComponent<Move>().enabled = true;
         GameObject.Find("Swordobject").GetComponent<Kiseki>().enabled = true;
+        Instantiate(Arrow, new Vector3(player.position.x + 2, player.position.y, 1f), transform.rotation);
     }
 }
