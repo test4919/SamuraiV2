@@ -16,7 +16,7 @@ public class BossUlt : MonoBehaviour {
         if (other.gameObject.tag == "Player")
         {
             Debug.Log("TakePlayerHp");
-            PlayerHp.GetComponent<Player_Hp>().Hp -= 15.0f;
+            PlayerHp.GetComponent<Player_Hp>().Hp -= 18.0f;
             GameObject.Find("HeroHpBar").GetComponent<Image>().fillAmount = PlayerHp.GetComponent<Player_Hp>().Hp/100.0f;
             GameObject.Find("Player").GetComponent<Move>().ShowHpBar = true;
             GameObject.Find("Player").GetComponent<Move>().isAtk = true;

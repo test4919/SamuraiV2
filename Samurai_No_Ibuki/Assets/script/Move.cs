@@ -185,7 +185,7 @@ public class Move : MonoBehaviour
 
         else if (!isGround())
         {
-            KageBig.transform.localScale = new Vector3(0.2f, 0.2f, 1);
+            KageBig.transform.localScale = new Vector3(0.6f, 0.6f, 1);
             KageBig.transform.position = (new Vector3(this.transform.position.x, KageBig.transform.position.y, KageBig.transform.position.z));
 
             Drag = false;

@@ -30,7 +30,14 @@ public class MenuController : MonoBehaviour {
 
     public void RestartKey()
     {
-        SceneManager.LoadScene("Main");
+        if (SceneManager.GetActiveScene().name == "Main")
+        {
+            SceneManager.LoadScene("Main");
+        }
+        else if (SceneManager.GetActiveScene().name == "MachiBattle")
+        {
+            SceneManager.LoadScene("MachiBattle");
+        }
         Time.timeScale = 1f;
     }
 

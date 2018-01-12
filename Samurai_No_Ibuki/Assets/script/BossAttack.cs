@@ -16,7 +16,7 @@ public class BossAttack : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            PlayerHp.GetComponent<Player_Hp>().Hp -= 10.0f;
+            PlayerHp.GetComponent<Player_Hp>().Hp -= 15.0f;
             //GameObject.Find("HeroHpBar").GetComponent<Image>().fillAmount -= 20f / 100f;
             GameObject.Find("HeroHpBar").GetComponent<Image>().fillAmount = PlayerHp.GetComponent<Player_Hp>().Hp / 100.0f;
             GameObject.Find("Player").GetComponent<Move>().ShowHpBar = true;
