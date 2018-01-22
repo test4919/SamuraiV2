@@ -98,7 +98,7 @@ public class TextController : MonoBehaviour
         {
             TranslateSpeedTime += 0.1f;
 
-            if ((TranslateSpeedTime > 10.0f) && (arrowflag))
+            if ((TranslateSpeedTime > 13.0f) && (arrowflag))
             {
                 //Debug.Log("111");
                 //Instantiate(Arrow, new Vector3(player.position.x + 2, player.position.y, 1f), transform.rotation);

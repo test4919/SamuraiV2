@@ -19,7 +19,7 @@ public class TutorialText : MonoBehaviour {
     bool trrigerflag = false;
     
     float TranslateSpeedTime = 0.1f;
-    public float TranslateTime = 5.0f;
+    public float TranslateTime = 5.5f;
     float countTime = 0.0f;
     // Use this for initialization
     void Start () {
