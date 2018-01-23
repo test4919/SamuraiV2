@@ -352,7 +352,7 @@ public class Move : MonoBehaviour
             }         
             return;
         }
-	if (EndPos.x - StartPos.x > 0)
+	    if (EndPos.x - StartPos.x > 0)
         {
             AttackIsLeft = true;
         }

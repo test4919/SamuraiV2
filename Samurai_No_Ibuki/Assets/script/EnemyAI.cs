@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System;
 public class EnemyAI : MonoBehaviour {
 
 	public SamuraiController thisController;
@@ -26,19 +26,34 @@ public class EnemyAI : MonoBehaviour {
     bool bloodOpen=false;
 
     bool DeadFlag = false;
-    private Vector2 Deadforward;
+    private Vector3 Deadforward;
     public GameObject Player;
 	
-    public const float g = 9.8f;
-    float flydistance = 5.0f;
-    public float horizontalspeed = 8.0f;
+    public const float g = -9.8f;
+    float flydistance = 10.0f;
+    public float horizontalspeed = 0.8f;
 
-    public float verticalSpeed = 10.0f;
+    public float verticalSpeed = 0.6f;
     float time = 0.0f;
     float GR1Y;
     float GR2Y;
     bool ground = false;
     public LayerMask groundLayer;
+
+     float Power = 30;
+    public float Angle = 60;
+    public float Gravity = -10;
+    private Vector3 MoveSpeed;
+    private Vector3 GritySpeed = Vector3.zero;
+    private float dTime = 0;
+    private Vector3 currentAngle;
+    bool forward;
+    private Vector3 GravityVec;
+    float forwardflag;
+    float CutCount = 0;
+
+
+
 
     bool isGround()
     {
@@ -85,9 +100,11 @@ public class EnemyAI : MonoBehaviour {
             this.transform.localScale = new Vector3(0.9f, 0.9f, 1);
         }
         //GR1Y = GameObject.Find("Gr").transform.position.y;
+
+        GravityVec = Vector3.zero;
     }
 
-    
+
 
     // Update is called once per frame
     void Update() {
@@ -119,32 +136,62 @@ public class EnemyAI : MonoBehaviour {
         Physics2D.IgnoreLayerCollision(13, 14);
         Physics2D.IgnoreLayerCollision(9, 14);
 
+      
 
-        if (DeadFlag)
+        if (CutCount==1)
         {
-            //float time = 0.0f;
+
             time += Time.deltaTime;
+            ////float time = 0.0f;
+
             Vector2 flyforward = new Vector2(horizontalspeed, 0);
-            transform.Translate(flyforward * Time.deltaTime * 0.5f, Space.World);
-            float vertical= verticalSpeed;
-            transform.Translate(transform.up * vertical * Time.deltaTime, Space.World);
+            if (forwardflag > 0)
+                transform.Translate(Vector3.left * horizontalspeed * Time.deltaTime * 0.5f, Space.World);
+            else
+                transform.Translate(Vector3.right * Time.deltaTime * 0.5f, Space.World);
+            transform.Translate(Vector3.up * verticalSpeed * Time.deltaTime, Space.World);
 
             if (time > 2.0f)
             {
                 Destroy(gameObject);
             }
-            //if (isGround())
-            //{
-            //    if (ground)
-            //    {
-            //        this.GetComponent<Rigidbody2D>().Sleep();
-            //        Destroy(gameObject, 0.5f);
-            //        this.GetComponent<Animator>().SetBool("DeadOnGround", true);
-            //    }
+          
 
-            //}
+        }else if(CutCount==2)
+        {
+            time += Time.deltaTime;
 
+            Vector2 flyforward = new Vector2(horizontalspeed * 1.5f, 0);
+            if (forwardflag > 0)
+                transform.Translate(Vector3.left * horizontalspeed * Time.deltaTime * 0.5f, Space.World);
+            else
+                transform.Translate(Vector3.right * Time.deltaTime * 0.5f, Space.World);
+            transform.Translate(Vector3.up * verticalSpeed * 1.5f * Time.deltaTime, Space.World);
+
+            transform.Rotate(new Vector3(0, 0, 1) * Time.deltaTime * 720);
+            if (time > 2.5f)
+            {
+                Destroy(gameObject);
+            }
         }
+        else if (CutCount ==3)
+        {
+            time += Time.deltaTime;
+
+            Vector2 flyforward = new Vector2(horizontalspeed * 2.0f, 0);
+            if (forwardflag > 0)
+                transform.Translate(Vector3.left * horizontalspeed * 3.0f * Time.deltaTime * 0.5f, Space.World);
+            else
+                transform.Translate(Vector3.right * Time.deltaTime * 0.5f, Space.World);
+            transform.Translate(Vector3.up * verticalSpeed * 5.0f * Time.deltaTime, Space.World);
+
+            transform.Rotate(new Vector3(0, 0, 1) * Time.deltaTime * 7200);
+            if (time > 3.0f)
+            {
+                Destroy(gameObject);
+            }
+        }
+
 
     }
 
@@ -209,7 +256,8 @@ public class EnemyAI : MonoBehaviour {
     private IEnumerator BloodBurst()
     {
         bloodOpen = true;
-        if (!DeadFlag)
+        CutCount += 1;
+        if (CutCount <= 3)
         {
 
             if (this.transform.localScale.x == -0.9f || this.transform.localScale.x == -0.7f)
@@ -233,11 +281,18 @@ public class EnemyAI : MonoBehaviour {
                 GetComponent<AudioSource>().Play();
             }
             // yield return new WaitForSeconds(0.5f);
+            if (CutCount == 1)
+            {
+                forwardflag = Player.transform.position.x - transform.position.x;
 
-            Deadforward = new Vector2(transform.position.x+ flydistance, transform.position.y);
-            Dead();
+                //time = Vector3.Distance(transform.position, Player.transform.position) / flydistance;
 
-            //Destroy(gameObject, 0.3f);
+
+                // Deadforward = new Vector3((Player.transform.position.x - transform.position.x) / time,
+                // (Player.transform.position.y - transform.position.y) / time - 0.5f * g * time, (Player.transform.position.z - transform.position.z) / time);
+
+                Dead();
+            }
             Destroy(BloodR, 1.5f);
             Destroy(BloodL, 1.5f);
             yield return new WaitForSeconds(0.5f);
