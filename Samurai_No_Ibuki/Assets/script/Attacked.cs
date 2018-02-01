@@ -7,10 +7,12 @@ using UnityEngine.SceneManagement;
 public class Attacked : MonoBehaviour {
 
     public float AtkBossDmg;
+    GameObject FinalBoss;
 
     // Use this for initialization
     void Start() {
         AtkBossDmg = 0.04f;
+        FinalBoss = GameObject.Find("FinalBoss");
     }
     
 
@@ -43,17 +45,17 @@ public class Attacked : MonoBehaviour {
         if (other.gameObject.tag == "enemy")
         {
             other.GetComponent<EnemyAI>().EnemyDestory();
-           
-            ultfire.localScale += new Vector3(0.38f, 0.25f,0);
-            if (ultfire.localScale.x >=1.5f )
+
+            ultfire.localScale += new Vector3(0.38f, 0.25f, 0);
+            if (ultfire.localScale.x >= 1.5f)
             {
                 ultfire.localScale = new Vector3(1.5f, 1, 0);
             }
         }
-       else if (other.gameObject.tag == "enemy2" || other.gameObject.tag == "enemyM")
+        else if (other.gameObject.tag == "enemy2" || other.gameObject.tag == "enemyM")
         {
             other.GetComponent<TakoController>().death = true;
-           
+
             ultfire.localScale += new Vector3(0.38f, 0.25f, 0);
             if (ultfire.localScale.x >= 1.5f)
             {
@@ -70,6 +72,12 @@ public class Attacked : MonoBehaviour {
             {
                 ultfire.localScale = new Vector3(1.5f, 1, 0);
             }
+        }
+
+        if (other.gameObject.tag == "BossHand")
+        {
+            FinalBoss.GetComponent<Boss2Controller>().LeftHandHP -= 5.0f;
+            Debug.Log("Fire");
         }
 
     }

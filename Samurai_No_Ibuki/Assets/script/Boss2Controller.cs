@@ -28,13 +28,17 @@ public class Boss2Controller : MonoBehaviour {
     public float AttackSpeed;
     public float AttackTime;
     public float AttackColdDown;
+    public float LeftHandHP;
+    public float RightHandHP;
+    public float BossHP;
 
-    public bool FindPlayer;
+
+    public bool Attacking;
     public bool NormalAttack;
     public bool isHead;
-   
-
     public bool SpAtk;
+
+    float def;
 
     // Use this for initialization
     void Start () {
@@ -45,59 +49,25 @@ public class Boss2Controller : MonoBehaviour {
         AttackTime = 5.0f;
         AttackColdDown = 5.0f;
         Lefthand = GameObject.Find("HandAttack");
-        FindPlayer = false;
-	}
+        Attacking = false;
+        LeftHandHP=100.0f;
+        RightHandHP = 100.0f;
+        BossHP = 100.0f;
+}
 	
 	// Update is called once per frame
 	void Update () {
         normalAttack();
         LookPlayer();
-        if (NormalAttack)
+        LeftHandATK();
+
+        if (isHead&&Attacking)
         {
-            if (this.transform.localScale == new Vector3(1, 1, 1))
-            {
-                FindPlayer = true;
-                if (FindPlayer)
-                {
-                    LeftHand.transform.Translate(-0.3f, 0, 0);
-
-                    Debug.Log("run");
-                }
-                
-                if (LeftHand.transform.position.x <= Player.transform.position.x && !isHead)
-                {
-                    FindPlayer = false;
-                    LeftHand.transform.position = new Vector3(Player.transform.position.x - 2, LeftHand.transform.position.y, 0);
-                    if (LeftHand.transform.position.x == Player.transform.position.x )
-                    {
-                        isHead = true;
-                        StartCoroutine("AtkDown");
-                        Debug.Log("1111111");
-                    }
-
-                    // いまプレイヤーの頭の位置にいるのか？
-                    // if(プレイヤーの頭の位置にいる？)
-                    // {
-                    //   flg = true;
-                    //  StartCoroutine("AtkDown");
-                    // }
-                    //StartCoroutine("AtkDown");
-                    //Debug.Log("1111111");
-                }
-                
-            }
-           
-            else if (this.transform.localScale == new Vector3(-1, 1, 1))
-            {
-                LeftHand.transform.Translate(-0.3f, 0, 0);
-                if (LeftHand.transform.position.x >= Player.transform.position.x)
-                {
-                    LeftHand.transform.position = new Vector3(Player.transform.position.x + 2, LeftHand.transform.position.y, 0);
-                    StartCoroutine("AtkDown");
-                }
-            }
-            AttackTime -= Time.deltaTime;
+            StartCoroutine("AtkDown");
+            LeftHand.gameObject.tag = "BossLeftHand";
         }
+
+       
         if (AttackTime <= 0)
         {
             NormalAttack = false;
@@ -120,8 +90,55 @@ public class Boss2Controller : MonoBehaviour {
         }
     }
 
+    private void LeftHandATK()
+    {
+        if (NormalAttack)
+        {
+            if (this.transform.localScale == new Vector3(1, 1, 1) && !isHead)
+            {
+
+                LeftHand.transform.Translate(-0.3f, 0, 0);
+                if (LeftHand.transform.localPosition.x <= Player.transform.position.x)
+                {
+                    LeftHand.transform.position = new Vector3(Player.transform.position.x, LeftHand.transform.position.y, 0);
+                    isHead = true;
+                    Attacking = true;
+
+
+                    //        // いまプレイヤーの頭の位置にいるのか？
+                    //        // if(プレイヤーの頭の位置にいる？)
+                    //        // {
+                    //        //   flg = true;
+                    //        //  StartCoroutine("AtkDown");
+                    //        // }
+                    //        //StartCoroutine("AtkDown");
+                    //        //Debug.Log("1111111");
+                }
+
+            }
+
+            else if (this.transform.localScale == new Vector3(-1, 1, 1) && !isHead)
+            {
+                LeftHand.transform.Translate(-0.3f, 0, 0);
+                if (LeftHand.transform.position.x >= Player.transform.position.x)
+                {
+                    LeftHand.transform.position = new Vector3(Player.transform.position.x, LeftHand.transform.position.y, 0);
+                    isHead = true;
+                    Attacking = true;
+
+                }
+            }
+            AttackTime -= Time.deltaTime;
+        }
+    }
+
     private void LookPlayer()
     {
+        if (Attacking)
+        {
+            return;
+        }
+
         if (Player.transform.position.x > this.transform.position.x)
         {
             this.transform.localScale = new Vector3(-1, 1, 1);
@@ -143,12 +160,12 @@ public class Boss2Controller : MonoBehaviour {
             Lefthand.transform.rotation = Quaternion.Euler(0, 0, 30);
         }
         yield return new WaitForSeconds(0.5f);
-        //LeftHand.transform.position = new Vector3(LeftHand.transform.position.x, LeftHand.transform.position.y, 0);
-        yield return new WaitForSeconds(1.0f);
         LeftHand.transform.Translate(0, -0.3f, 0);
         yield return new WaitForSeconds(1f);
-        LeftHand.transform.localPosition = new Vector3(0.14f, 1.58f, 0);
-        Lefthand.transform.rotation = Quaternion.Euler(0, 0, 0);
         isHead = false;
+        Attacking = false;
+        LeftHand.gameObject.tag = "BossHand";
+        LeftHand.transform.localPosition = new Vector3(3.2f, 1.58f, 0);
+        Lefthand.transform.rotation = Quaternion.Euler(0, 0, 0);
     }
 }
