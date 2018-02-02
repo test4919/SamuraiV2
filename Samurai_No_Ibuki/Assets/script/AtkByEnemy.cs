@@ -19,7 +19,7 @@ public class AtkByEnemy : MonoBehaviour
 
         if (other.gameObject.tag == "BossLeftHand")
         {
-            GameObject.Find("Player").GetComponent<Player_Hp>().Hp -= 3.5f;
+            GameObject.Find("Player").GetComponent<Player_Hp>().Hp -= 10f;
             GameObject.Find("HeroHpBar").GetComponent<Image>().fillAmount = GameObject.Find("Player").GetComponent<Player_Hp>().Hp / 100.0f;
             GameObject.Find("Player").GetComponent<Move>().ShowHpBar = true;
             GameObject.Find("Player").GetComponent<Move>().isAtk = true;

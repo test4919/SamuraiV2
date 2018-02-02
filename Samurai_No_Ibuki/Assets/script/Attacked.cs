@@ -74,7 +74,7 @@ public class Attacked : MonoBehaviour {
             }
         }
 
-        if (other.gameObject.tag == "BossHand")
+        if (other.gameObject.tag == "BossHandL")
         {
             FinalBoss.GetComponent<Boss2Controller>().LeftHandHP -= 5.0f;
             Debug.Log("Fire");

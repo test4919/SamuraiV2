@@ -28,10 +28,8 @@ public class BloodShow : MonoBehaviour {
             blood = GameObject.Instantiate(Blood_ground, new Vector3(other.transform.position.x + 9.0f, this.transform.position.y + BloodHigh, other.transform.position.z), this.transform.rotation) as GameObject;
             Destroy(blood, 0.5f);
         }
-
-       
-       
+ 
     }
 
-    
+
 }
