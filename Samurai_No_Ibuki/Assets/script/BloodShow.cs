@@ -13,6 +13,15 @@ public class BloodShow : MonoBehaviour {
         
     }
 
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "BossBody")
+        {
+            other.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
+            other.gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+        }
+    }
+
     void OnParticleCollision(GameObject other)
     {
        

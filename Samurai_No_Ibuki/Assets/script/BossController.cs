@@ -415,8 +415,6 @@ public class BossController : MonoBehaviour {
             }
             else if (SceneManager.GetActiveScene().name == "MachiBattle")
             {
-               // DestroyObject(this.gameObject);
-               // DestroyObject(GameObject.Find("BossS"));
                 StartCoroutine(BossD());
             }
 

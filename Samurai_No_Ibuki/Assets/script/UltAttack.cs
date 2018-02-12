@@ -8,10 +8,12 @@ public class UltAttack : MonoBehaviour {
 
      float takeBossHp;
     public AudioClip isUltSound;
+    GameObject FinalBoss;
 
     void Start()
     {
-        takeBossHp = 0.15f;      
+        takeBossHp = 0.15f;
+        FinalBoss = GameObject.Find("FinalBoss");
     }
 
     void Update()
@@ -32,6 +34,19 @@ public class UltAttack : MonoBehaviour {
             {
                 GameObject.Find("Boss").GetComponent<BossController>().ULTEnemyBlood();
             }
+        }
+        if (other.gameObject.tag == "BossHandL")
+        {
+            FinalBoss.GetComponent<Boss2Controller>().LeftHandHP -= 10f;
+            
+        }
+        if (other.gameObject.tag == "BossHandR")
+        {
+            FinalBoss.GetComponent<Boss2Controller>().RightHandHP -= 10f;
+        }
+        if (other.gameObject.tag == "BossBody")
+        {
+            FinalBoss.GetComponent<Boss2Controller>().BossHP -= 10f;
         }
     }
 

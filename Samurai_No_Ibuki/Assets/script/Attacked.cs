@@ -77,9 +77,33 @@ public class Attacked : MonoBehaviour {
         if (other.gameObject.tag == "BossHandL")
         {
             FinalBoss.GetComponent<Boss2Controller>().LeftHandHP -= 5.0f;
-            Debug.Log("Fire");
-        }
+            ultfire.localScale += new Vector3(0.38f, 0.25f, 0);
 
+            if (ultfire.localScale.x >= 1.5f)
+            {
+                ultfire.localScale = new Vector3(1.5f, 1, 0);
+            }
+        }
+        if (other.gameObject.tag == "BossHandR")
+        {
+            FinalBoss.GetComponent<Boss2Controller>().RightHandHP -= 5.0f;
+            ultfire.localScale += new Vector3(0.38f, 0.25f, 0);
+
+            if (ultfire.localScale.x >= 1.5f)
+            {
+                ultfire.localScale = new Vector3(1.5f, 1, 0);
+            }
+        }
+        if (other.gameObject.tag == "BossBody")
+        {
+            FinalBoss.GetComponent<Boss2Controller>().BossHP -= 10.0f;
+            ultfire.localScale += new Vector3(0.38f, 0.25f, 0);
+
+            if (ultfire.localScale.x >= 1.5f)
+            {
+                ultfire.localScale = new Vector3(1.5f, 1, 0);
+            }
+        }
     }
 
 }

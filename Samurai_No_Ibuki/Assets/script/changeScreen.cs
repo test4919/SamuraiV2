@@ -13,6 +13,7 @@ public class changeScreen : MonoBehaviour {
      GameObject StartPanel;
     public float alpha;
     float Panel_alpha = 1.0f;
+    Scene nowScene;
 
     // Use this for initialization
     void Start() {
@@ -70,7 +71,11 @@ public class changeScreen : MonoBehaviour {
 
     public void RestartGame()
     {
-        SceneManager.LoadScene("Main");
+        nowScene = SceneManager.GetActiveScene();
+        if (SceneManager.GetActiveScene() == nowScene)
+        {
+            SceneManager.LoadScene(nowScene.name);
+        }
     }
 
     public void BackToTilte()

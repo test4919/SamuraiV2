@@ -170,13 +170,13 @@ public class CamereControl : MonoBehaviour {
             
             if (player.transform.position.y > 26.0f)
             {
-                xMax = 324.0f;
+                xMax = 232.5f;
             }
-            else { xMax = 235f; yMin = -1f; }
+            else { xMax = 230f; yMin = -1f; }
 
             if (player.transform.position.x > 64.0f)
             {
-                yMax = 32.0f;
+                yMax = 70.0f;
             }
             else { yMax = 0.5f; }
 
@@ -273,7 +273,11 @@ public class CamereControl : MonoBehaviour {
         {
             GameObject.Find("Right01").GetComponent<BoxCollider2D>().enabled = false;
             GameObject.Find("Left01").GetComponent<BoxCollider2D>().enabled = false;
-            GameObject.Find("Event1").GetComponent<Block_Event>().ArrowShow = true;
+            if (SceneManager.GetActiveScene().name == "Main")
+            {
+                GameObject.Find("Event1").GetComponent<Block_Event>().ArrowShow = true;
+            }
+            
             smooth01 = false;
         }
         else if (player.position.x > 83 && player.position.x < 160)
@@ -286,6 +290,10 @@ public class CamereControl : MonoBehaviour {
         {
             GameObject.Find("Right03").GetComponent<BoxCollider2D>().enabled = false;
             GameObject.Find("Left03").GetComponent<BoxCollider2D>().enabled = false;
+            if (SceneManager.GetActiveScene().name == "MachiBattle")
+            {
+                GameObject.Find("Event1").GetComponent<Block_Event>().ArrowShow = true;
+            }
             smooth03 = false;
         }
         else if (player.position.x > 255 && player.position.x < 315)

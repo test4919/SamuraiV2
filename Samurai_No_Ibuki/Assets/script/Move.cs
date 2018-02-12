@@ -581,7 +581,7 @@ public class Move : MonoBehaviour
         }
         else if (other.gameObject.tag == "FinalBattle")
         {
-            SceneManager.LoadScene("Boss2");
+            SceneManager.LoadScene("Loading3");
         }
         else if (other.gameObject.tag == "BossSBattle")
         {

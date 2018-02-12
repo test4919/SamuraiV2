@@ -21,7 +21,7 @@ public class suriken : MonoBehaviour {
 		targetPos = GameObject.FindGameObjectWithTag ("Player").transform.position;
         //rad = Mathf.Atan2(
         //   Player.transform.position.y - transform.position.y,
-        //    Player.transform.position.x - transform.position.x);
+        //   Player.transform.position.x - transform.position.x);
 		targetPos = new Vector3 (targetPos.x - this.transform.position.x, targetPos.y - this.transform.position.y, 0);
 		targetPos = targetPos.normalized;
 	}
@@ -39,7 +39,7 @@ public class suriken : MonoBehaviour {
 
         //transform.position = Position;
 		LookAtPlayer();
-		this.transform.parent.Translate(new Vector3(targetPos.x*surikenSpeed*Time.deltaTime,targetPos.y*surikenSpeed*Time.deltaTime,0));
+		this.transform.Translate(new Vector3(targetPos.x*surikenSpeed*Time.deltaTime,targetPos.y*surikenSpeed*Time.deltaTime,0));
     }
 	void LookAtPlayer()
 	{

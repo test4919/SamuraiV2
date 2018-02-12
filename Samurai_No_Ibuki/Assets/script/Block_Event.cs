@@ -31,35 +31,47 @@ public class Block_Event : MonoBehaviour {
             //}
             
         }
-
-        if (player.transform.position.x >= 62 && Camera.main.transform.position.x <= 75)
+        if (SceneManager.GetActiveScene().name == "Main")
         {
-            Arrow.GetComponent<SpriteRenderer>().enabled = false;
-            ArrowShow = false;
-            Arrow.transform.position = new Vector3(75, 6, 0);
-            return;
-        }
-        else if (player.transform.position.x >= 80&& player.transform.position.y <= 25)
-        {
-            if (SceneManager.GetActiveScene().name == "Main")
-            {
-                ArrowShow = true;
-                Arrow.GetComponent<SpriteRenderer>().enabled = true;
-                Arrow.transform.eulerAngles = new Vector3(0, 0, 62);
-            }
-            
-        }
-        else if (player.transform.position.y >= 25)
-        {
-            if (SceneManager.GetActiveScene().name == "Main")
+            if (player.transform.position.x >= 62 && Camera.main.transform.position.x <= 75)
             {
                 Arrow.GetComponent<SpriteRenderer>().enabled = false;
                 ArrowShow = false;
-                Destroy(GameObject.FindWithTag("enemyM"));
+                Arrow.transform.position = new Vector3(75, 6, 0);
+                return;
             }
+            else if (player.transform.position.x >= 80&& player.transform.position.y <= 25)
+            {
+           
+                    ArrowShow = true;
+                    Arrow.GetComponent<SpriteRenderer>().enabled = true;
+                    Arrow.transform.eulerAngles = new Vector3(0, 0, 62);
             
+            }
+            else if (player.transform.position.y >= 25)
+            {
+                    Arrow.GetComponent<SpriteRenderer>().enabled = false;
+                    ArrowShow = false;
+                    Destroy(GameObject.FindWithTag("enemyM"));
+
+            
+            }
         }
-        
+
+        if (SceneManager.GetActiveScene().name == "MachiBattle")
+        {
+            if (player.transform.position.y >= 62)
+            {
+
+                ArrowShow = true;
+                Arrow.GetComponent<SpriteRenderer>().enabled = true;
+                Arrow.transform.eulerAngles = new Vector3(0, 0, 0);
+            }
+            else
+                Arrow.transform.eulerAngles = new Vector3(0, 0, 71);
+
+        }
+
 
 
         if (ArrowShow)
