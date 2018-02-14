@@ -25,6 +25,7 @@ public class CamereControl : MonoBehaviour {
     bool ScaleChg = false;
     private float SmoothSpd = 0.125f;
     private Vector3 offset = new Vector3(0, 0, -10f);
+    private GameObject FinalBoss;
 
     public Transform lookAt;
     public Transform lookAt2;
@@ -51,6 +52,7 @@ public class CamereControl : MonoBehaviour {
     public GameObject WaterCloud;
     public bool BossOpen;
     public GameObject TopClose;
+    public GameObject FinalBossChat;
    
     // Use this for initialization
     void Start () {
@@ -70,6 +72,17 @@ public class CamereControl : MonoBehaviour {
         {
             StartCoroutine("DalayClose");
         }
+        if (SceneManager.GetActiveScene().name == "Boss2")
+        {
+            FinalBoss = GameObject.Find("FinalBoss");
+            StartCoroutine("StartFinalBossChat");
+            player.GetComponent<Move>().isStop = true;
+        }
+        if (SceneManager.GetActiveScene().name == "Boss2")
+        {
+            ScaleChg = true;
+        }
+
     }
 
     void LateUpdate()
@@ -78,8 +91,7 @@ public class CamereControl : MonoBehaviour {
         Vector3 SEposition2 = lookAt2.position + offset;
         Vector3 Seposition3 = lookAt3.position + offset;
         Vector4 SeeBossPosition = lookAtBoss.position + offset;
-
-
+        
         if (transform.position.x > 70.0f)
         {
             if (SceneManager.GetActiveScene().name == "Main")
@@ -196,6 +208,7 @@ public class CamereControl : MonoBehaviour {
         TopClose.SetActive(true);
         GameObject.Find("Event").GetComponent<CreateEnemy>().enabled = true;
     }
+    
 
     private void startsyobu()
     {
@@ -208,7 +221,7 @@ public class CamereControl : MonoBehaviour {
             
             if (ScaleChg)
                {
-                
+
                 StartCoroutine("Turnfalse");
                 
                 }
@@ -246,8 +259,18 @@ public class CamereControl : MonoBehaviour {
         GameObject.Find("Player").GetComponent<Move>().isStop = false;
         if (smoothBoss)
         {
-            GameObject.Find("Boss(Clone)").GetComponent<BossController>().enabled = true;
+            if (SceneManager.GetActiveScene().name == "Main")
+            {
+                GameObject.Find("Boss(Clone)").GetComponent<BossController>().enabled = true;
+            }
+            else if (SceneManager.GetActiveScene().name == "Boss2")
+            {
+                GameObject.Find("FinalBoss").GetComponent<Boss2Controller>().enabled = true;
+                GameObject.Find("FinalBoss").transform.position = new Vector3(2.5f, 1.22f, 0);
+            }
+            
         }
+       
      
     }
 
@@ -308,8 +331,14 @@ public class CamereControl : MonoBehaviour {
 
     }
 
+    private IEnumerator StartFinalBossChat()
+    {
+        yield return new WaitForSeconds(0.5f);
+        FinalBossChat.SetActive(true);
+        GameObject.Find("BossTextController").GetComponent<BossTextController>().enabled = true;
 
-    
+    }
+
 
     public void ChgCameraPlc()
     {
@@ -334,7 +363,7 @@ public class CamereControl : MonoBehaviour {
             smoothBoss = true;
             ScaleChg = true;
         }
-        
+       
     }
    
 }
