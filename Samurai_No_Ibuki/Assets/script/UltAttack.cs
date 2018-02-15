@@ -38,15 +38,18 @@ public class UltAttack : MonoBehaviour {
         if (other.gameObject.tag == "BossHandL")
         {
             FinalBoss.GetComponent<Boss2Controller>().LeftHandHP -= 10f;
-            
+            GameObject.Find("FinalBoss").GetComponent<Boss2Controller>().EnemyBlood_show();
+
         }
         if (other.gameObject.tag == "BossHandR")
         {
             FinalBoss.GetComponent<Boss2Controller>().RightHandHP -= 10f;
+            GameObject.Find("FinalBoss").GetComponent<Boss2Controller>().EnemyBlood_show();
         }
         if (other.gameObject.tag == "BossBody")
         {
             FinalBoss.GetComponent<Boss2Controller>().BossHP -= 10f;
+            GameObject.Find("FinalBoss").GetComponent<Boss2Controller>().EnemyBlood_show();
         }
     }
 

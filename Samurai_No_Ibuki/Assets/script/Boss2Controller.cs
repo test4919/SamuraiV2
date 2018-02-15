@@ -17,6 +17,8 @@ public class Boss2Controller : MonoBehaviour {
     public GameObject BossHpBar;
     public GameObject Eyes;
     public GameObject ClearBtn;
+    public GameObject Enemy_BloodR;
+    public GameObject Enemy_BloodL;
     public AudioClip BGMw;
     GameObject FinishPic;
     GameObject FinishWord;
@@ -41,6 +43,8 @@ public class Boss2Controller : MonoBehaviour {
 
     GameObject BossRedWave;
     GameObject flame;
+    GameObject BloodR;
+    GameObject BloodL;
     bool _redwave;
     bool _HandAtk;
     bool _AtkDir;
@@ -57,6 +61,9 @@ public class Boss2Controller : MonoBehaviour {
     float yBig;
     float xBig;
     float small;
+    float scale;
+
+    
 
 
     // Use this for initialization
@@ -74,6 +81,7 @@ public class Boss2Controller : MonoBehaviour {
         _break = false;
         _timer = false;
         timer = 0;
+        scale = 1.5f;
 
         small = 10.0f;
         BlinkCD = 5.0f;
@@ -259,7 +267,7 @@ public class Boss2Controller : MonoBehaviour {
 
             }
             
-            if (this.transform.localScale == new Vector3(1, 1, 1) && !isHead)
+            if (this.transform.localScale == new Vector3(scale, scale, scale) && !isHead)
                 {
                     
                     if (LeftHand.transform.position.x <= Player.transform.position.x)
@@ -271,9 +279,8 @@ public class Boss2Controller : MonoBehaviour {
                     }
                 }
 
-                else if (this.transform.localScale == new Vector3(-1, 1, 1) && !isHead)
+                else if (this.transform.localScale == new Vector3(-scale,scale,scale) && !isHead)
                 {
-                    //LeftHand.transform.Translate(-0.3f, 0, 0);
                     if (LeftHand.transform.position.x >= Player.transform.position.x)
                     {
                         LeftHand.transform.position = new Vector3(Player.transform.position.x, LeftHand.transform.position.y, 0);
@@ -304,21 +311,21 @@ public class Boss2Controller : MonoBehaviour {
 
         if (Player.transform.position.x > this.transform.position.x)
         {
-            this.transform.localScale = new Vector3(-1, 1, 1);
+            this.transform.localScale = new Vector3(-scale, scale,scale);
         }
         else
         {
-            this.transform.localScale = new Vector3(1, 1, 1);
+            this.transform.localScale = new Vector3(scale,scale, scale);
         }
     }
 
     IEnumerator  AtkDown()
     {
-        if (this.transform.localScale == new Vector3(-1, 1, 1))
+        if (this.transform.localScale == new Vector3(-scale, scale,scale))
         {
             Lefthand.transform.rotation = Quaternion.Euler(0, 0, -30);
         }
-        else if (this.transform.localScale == new Vector3(1, 1, 1))
+        else if (this.transform.localScale == new Vector3(scale, scale, scale))
         {
             Lefthand.transform.rotation = Quaternion.Euler(0, 0, 30);
         }
@@ -337,38 +344,84 @@ public class Boss2Controller : MonoBehaviour {
     {
         if (WaveAtk)
         {
-            if (this.transform.localScale == new Vector3(-1, 1, 1))
+            if (this.transform.localScale == new Vector3(-scale, scale, scale))
             {
                 RightHand.transform.rotation = Quaternion.Euler(0, 0, -90);
-                yield return new WaitForSeconds(1.5f);
-                RightHand.transform.rotation = Quaternion.Euler(0, 0, 90);       
+                yield return new WaitForSeconds(1f);
+                RightHand.transform.rotation = Quaternion.Euler(0, 0, 0);
+                yield return new WaitForSeconds(0.1f);
+                RightHand.transform.rotation = Quaternion.Euler(0, 0, 90);
+                yield return new WaitForSeconds(0.2f);
+                float firerange;
+                if (!_redwave)
+                {
+                    BossRedWave = GameObject.Instantiate(RedWave, new Vector2(transform.position.x, -12.0f), transform.rotation) as GameObject;
+                    if (Player.transform.position.x > this.transform.position.x)
+                    {
+                        BossRedWave.transform.localScale = new Vector3(-1.5f, 1.5f, 1);
+                        firerange = Random.Range(this.transform.position.x, 4.0f);
+                        fireSkill(firerange);
+                    }
+                    else
+                    {
+                        BossRedWave.transform.localScale = new Vector3(1.5f, 1.5f, 1);
+                        firerange = Random.Range(-18.0f, this.transform.position.x);
+                        fireSkill(firerange);
+                    }
+                    _redwave = true;
+                }
+                RightHand.transform.rotation = Quaternion.Euler(0, 0, 120);
+                yield return new WaitForSeconds(0.5f);      
             }
-            else if (this.transform.localScale == new Vector3(1, 1, 1))
+            else if (this.transform.localScale == new Vector3(scale,scale,scale))
             {
                 RightHand.transform.rotation = Quaternion.Euler(0, 0, 90);
-                yield return new WaitForSeconds(1.5f);
+                yield return new WaitForSeconds(1f);
+                RightHand.transform.rotation = Quaternion.Euler(0, 0, 0);
+                yield return new WaitForSeconds(0.1f);
                 RightHand.transform.rotation = Quaternion.Euler(0, 0, -90);
+                yield return new WaitForSeconds(0.2f);
+                float firerange;
+                if (!_redwave)
+                {
+                    BossRedWave = GameObject.Instantiate(RedWave, new Vector2(transform.position.x, -12.0f), transform.rotation) as GameObject;
+                    if (Player.transform.position.x > this.transform.position.x)
+                    {
+                        BossRedWave.transform.localScale = new Vector3(-1.5f, 1.5f, 1);
+                        firerange = Random.Range(this.transform.position.x, 4.0f);
+                        fireSkill(firerange);
+                    }
+                    else
+                    {
+                        BossRedWave.transform.localScale = new Vector3(1.5f, 1.5f, 1);
+                        firerange = Random.Range(-18.0f, this.transform.position.x);
+                        fireSkill(firerange);
+                    }
+                    _redwave = true;
+                }
+                RightHand.transform.rotation = Quaternion.Euler(0, 0,-120);
+                yield return new WaitForSeconds(0.5f);
             }
 
         }
-        float firerange;
-        if (!_redwave)
-        {
-            BossRedWave = GameObject.Instantiate(RedWave, new Vector2(transform.position.x,-12.0f), transform.rotation) as GameObject;
-            if (Player.transform.position.x > this.transform.position.x)
-            {
-                BossRedWave.transform.localScale = new Vector3(-1.5f, 1.5f, 1);
-                firerange = Random.Range(this.transform.position.x, 4.0f);
-                fireSkill(firerange);
-            }
-            else
-            {
-                BossRedWave.transform.localScale = new Vector3(1.5f, 1.5f, 1);
-                firerange = Random.Range(-18.0f, this.transform.position.x);
-                fireSkill(firerange);
-            }
-            _redwave = true;
-        }
+        //float firerange;
+        //if (!_redwave)
+        //{
+        //    BossRedWave = GameObject.Instantiate(RedWave, new Vector2(transform.position.x,-12.0f), transform.rotation) as GameObject;
+        //    if (Player.transform.position.x > this.transform.position.x)
+        //    {
+        //        BossRedWave.transform.localScale = new Vector3(-1.5f, 1.5f, 1);
+        //        firerange = Random.Range(this.transform.position.x, 4.0f);
+        //        fireSkill(firerange);
+        //    }
+        //    else
+        //    {
+        //        BossRedWave.transform.localScale = new Vector3(1.5f, 1.5f, 1);
+        //        firerange = Random.Range(-18.0f, this.transform.position.x);
+        //        fireSkill(firerange);
+        //    }
+        //    _redwave = true;
+        //}
         
         yield return new WaitForSeconds(1.1f);
         RightHand.transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -447,7 +500,7 @@ public class Boss2Controller : MonoBehaviour {
     private void fireSkill(float x)
     {
         flame = GameObject.Instantiate(Flame, new Vector2(x, -7.0f), transform.rotation) as GameObject;
-        Destroy(flame, 0.5f);
+        Destroy(flame, 5f);
         
     }
 
@@ -471,6 +524,28 @@ public class Boss2Controller : MonoBehaviour {
             WaveAtkCD = true;
         }
 
+    }
+
+    public void EnemyBlood_show()
+    {
+        if (this.transform.localScale.x == scale)
+        {
+            BloodR = GameObject.Instantiate(Enemy_BloodR, transform.position, transform.rotation) as GameObject;
+
+            BloodR.transform.localScale = new Vector3(-2, 2, 1);
+            BloodR.transform.localEulerAngles = new Vector3(0, 90, 0);
+        }
+        else if (this.transform.localScale.x == -scale)
+        {
+            BloodL = GameObject.Instantiate(Enemy_BloodL, transform.position, transform.rotation) as GameObject;
+
+
+            BloodL.transform.localScale = new Vector3(2, 2, 1);
+            BloodL.transform.localEulerAngles = new Vector3(0, 90, 0);
+        }
+        
+        Destroy(BloodR, 1.5f);
+        Destroy(BloodL, 1.5f);
     }
 
 
